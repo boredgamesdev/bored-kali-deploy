@@ -34,7 +34,7 @@ apt-get -y install \
     tnscmd10g \
     whatweb \
     wkhtmltopdf \
-    python3-pip \ 
+    python3-pip \
     evil-winrm \
     chromium \
     jq \
