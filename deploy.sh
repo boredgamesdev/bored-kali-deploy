@@ -14,7 +14,7 @@ apt-get update
 ################################################################################
 apt-get remove docker docker-engine docker.io containerd runc
 
-apt-get install \
+apt-get -y install \
     ca-certificates \
     curl \
     gnupg \
@@ -38,53 +38,11 @@ usermod -aG docker kali
 # Package list
 ################################################################################
 
-# Custom package list
-cat > kali-config/variant-default/package-lists/kali.list.chroot << EOF
-# ----------------------------------------------------------------------
-# Defaults suggested by kali documentation
-alsa-tools
-alsa-utils
-coreutils
-console-setup
-debian-installer-launcher
-kali-archive-keyring
-kali-debtags
-locales-all
-network-manager
-pulseaudio
-wireless-tools
-xfonts-terminus
-xorg
-
-# ----------------------------------------------------------------------
-# Desktop environment (slide dependencies)
-feh
-graphicsmagick
-rxvt-unicode
-suckless-tools
-xmobar
-xmonad
-
-# ----------------------------------------------------------------------
-# Utilities and tools
-curl
-firefox-esr
-git
-gparted
-p7zip-full
-parted
-python3
-ranger
-redshift
-stow
-vim
-
-# ----------------------------------------------------------------------
-# Security and penetration testing
-aircrack-ng
-nmap
-wireshark
-EOF
+apt-get -y install \
+    evil-winrm \
+    chromium \
+    jq \
+    tmux \
 
 ################################################################################
 # System configuration
@@ -116,4 +74,24 @@ chown -R kali:kali /home/kali/pentesting
 
 timedatectl set-timezone America/New_York
 
+# Configure tmux
 
+cat <<EOT >> /home/kali/.tmux.conf
+set -g mouse on 
+set -g history-limit 5000
+EOT
+
+# Configure zsh
+sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /home/kali/.zshrc
+sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /home/kali/.zshrc
+
+cat <<EOT >> /home/kali/.zshrc
+# Custom
+
+setopt share_history         
+setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+EOT
