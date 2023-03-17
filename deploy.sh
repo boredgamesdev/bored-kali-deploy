@@ -39,7 +39,8 @@ apt-get -y install \
     chromium \
     jq \
     tmux \
-    python3-venv
+    python3-venv \
+    python3-pip
 
 
 ################################################################################
@@ -52,6 +53,12 @@ apt install -y docker.io docker-compose
 systemctl enable docker --now
 
 usermod -aG docker kali
+
+################################################################################
+# Setup Runuser
+################################################################################
+
+run_kali() { runuser -l kali -c "$@" ;}
 
 ################################################################################
 # System configuration
@@ -67,17 +74,15 @@ hostnamectl set-hostname kalibored-$RANDOM
 echo "127.0.0.1	$(hostname)" >> /etc/hosts
 
 # Create directory to host profile.d scripts
-mkdir /home/kali/pentesting
-mkdir /home/kali/pentesting/configs
-mkdir /home/kali/pentesting/exploits
-mkdir /home/kali/pentesting/scans
-mkdir /home/kali/pentesting/scripts
-mkdir /home/kali/pentesting/trash
-mkdir /home/kali/pentesting/venv
-mkdir /home/kali/pentesting/vpn
-mkdir /home/kali/pentesting/webshells
-
-chown -R kali:kali /home/kali/pentesting 
+run_kali "mkdir /home/kali/pentesting"
+run_kali "mkdir /home/kali/pentesting/configs"
+run_kali "mkdir /home/kali/pentesting/exploits"
+run_kali "mkdir /home/kali/pentesting/scans"
+run_kali "mkdir /home/kali/pentesting/scripts"
+run_kali "mkdir /home/kali/pentesting/trash"
+run_kali "mkdir /home/kali/pentesting/venv"
+run_kali "mkdir /home/kali/pentesting/vpn"
+run_kali "mkdir /home/kali/pentesting/webshells"
 
 # Configure timezone
 
@@ -107,9 +112,7 @@ EOT
 
 # autorecon
 
-apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf python3-pip
-
-python3 -m venv /home/kali/pentesting/venv/autorecon
-source /home/kali/pentesting/venv/autorecon/bin/activate
-python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git
-deactivate
+run_kali "python3 -m venv /home/kali/pentesting/venv/autorecon"
+run_kali "source /home/kali/pentesting/venv/autorecon/bin/activate"
+run_kali "python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git"
+run_kali "deactivate"
