@@ -18,7 +18,7 @@ whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3
 # Install Docker 
 ################################################################################
 
-apt-get install -y docker.io docker-compose > /dev/null
+apt-get -y install docker.io docker-compose > /dev/null
 
 systemctl enable docker --now > /dev/null
 
