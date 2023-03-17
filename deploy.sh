@@ -13,7 +13,7 @@ apt-get -y install \
     curl \
     gnupg \
     lsb-release \
-    #seclists \
+    seclists \
     curl \
     dnsrecon \
     enum4linux \
