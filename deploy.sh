@@ -1,34 +1,35 @@
 #!/bin/bash
 
 pen_f="/home/kali/pentest"
+to_null = "> /dev/null"
 
 ################################################################################
 # linux
 ################################################################################
 
 # Update and install dependencies
-apt-get update
+apt-get update ${to_null}
 
 apt-get -y install ca-certificates curl gnupg lsb-release seclists curl dnsrecon enum4linux feroxbuster gobuster \
 impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g \
-whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator
+whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator ${to_null}
 
 
 ################################################################################
 # Install Docker 
 ################################################################################
 
-apt install -y docker.io docker-compose
+apt install -y docker.io docker-compose ${to_null}
 
-systemctl enable docker --now
+systemctl enable docker --now ${to_null}
 
-usermod -aG docker kali
+usermod -aG docker kali 
 
 ################################################################################
 # Setup Runuser
 ################################################################################
 
-run_kali() { runuser -l kali -c "$@" ;}
+run_kali() { runuser -l kali -c "$@" ;} 
 
 ################################################################################
 # System configuration
@@ -36,12 +37,12 @@ run_kali() { runuser -l kali -c "$@" ;}
 
 # Change transparency of qterminal to 0
 
-sed -i 's/ApplicationTransparency=5/ApplicationTransparency=0/g' /home/kali/.config/qterminal.org/qterminal.ini
+sed -i 's/ApplicationTransparency=5/ApplicationTransparency=0/g' /home/kali/.config/qterminal.org/qterminal.ini 
 
 # Change hostname
-hostnamectl set-hostname kalibored-$RANDOM
+hostnamectl set-hostname kalibored-$RANDOM 
 
-echo "127.0.0.1	$(hostname)" >> /etc/hosts
+echo "127.0.0.1	$(hostname)" >> /etc/hosts 
 
 # Create directory to host profile.d scripts
 run_kali "mkdir ${pen_f} \
@@ -85,7 +86,7 @@ EOT"
 run_kali "python3 -m venv ${pen_f}/venv/autorecon ;
 source ${pen_f}/venv/autorecon/bin/activate ;
 python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git ;
-deactivate ; "
+deactivate ; " ${to_null}
 
 # foxproxy
 
