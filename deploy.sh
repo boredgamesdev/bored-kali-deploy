@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pen_f="/home/kali/pentest"
 
 ################################################################################
 # linux
@@ -43,15 +44,15 @@ hostnamectl set-hostname kalibored-$RANDOM
 echo "127.0.0.1	$(hostname)" >> /etc/hosts
 
 # Create directory to host profile.d scripts
-run_kali "mkdir /home/kali/pentesting \
-    /home/kali/pentesting/configs \
-    /home/kali/pentesting/exploits \
-    /home/kali/pentesting/scans \
-    /home/kali/pentesting/scripts \
-    /home/kali/pentesting/trash \
-    /home/kali/pentesting/venv \
-    /home/kali/pentesting/vpn \
-    /home/kali/pentesting/webshells"
+run_kali "mkdir ${pen_f} \
+    ${pen_f}/configs \
+    ${pen_f}/exploits \
+    ${pen_f}/pentest/scans \
+    ${pen_f}/pentest/scripts \
+    ${pen_f}/pentest/trash \
+    ${pen_f}/pentest/venv \
+    ${pen_f}/pentest/vpn \
+    ${pen_f}/pentest/webshells"
 
 # Configure timezone
 
@@ -81,7 +82,17 @@ EOT"
 
 # autorecon
 
-run_kali "python3 -m venv /home/kali/pentesting/venv/autorecon ;
-source /home/kali/pentesting/venv/autorecon/bin/activate ;
+run_kali "python3 -m venv ${pen_f}/venv/autorecon ;
+source ${pen_f}/venv/autorecon/bin/activate ;
 python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git ;
 deactivate ; "
+
+# foxproxy
+
+cat /usr/share/firefox-esr/distribution/policies.json |\
+jq '.policies += {"Extensions"}' |\
+jq '.policies.Extensions += {"Install":["https://addons.mozilla.org/firefox/downloads/file/3616827/foxyproxy_basic-7.5.1.xpi"]}' |\
+jq '.policies += {"ExtensionUpdate":"true"}' |\
+jq --unbuffered  > ${pen_f}/trash/policies.json
+cp ${pen_f}/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
+rm ${pen_f}/trash/policies.json
