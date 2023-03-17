@@ -5,6 +5,7 @@ pen_f="/home/kali/pentest"
 ################################################################################
 # linux
 ################################################################################
+echo "Installing apt packages"
 
 # Update and install dependencies
 apt-get update > /dev/null
@@ -17,6 +18,7 @@ whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3
 ################################################################################
 # Install Docker 
 ################################################################################
+echo "Installing Docker"
 
 apt-get -y install docker.io docker-compose > /dev/null
 
@@ -39,11 +41,14 @@ run_kali() { runuser -l kali -c "$@" ;}
 sed -i 's/ApplicationTransparency=5/ApplicationTransparency=0/g' /home/kali/.config/qterminal.org/qterminal.ini 
 
 # Change hostname
-hostnamectl set-hostname kalibored-$RANDOM 
+host_name="kalibored-$RANDOM"
+echo "Setting hostname to ${host_name}"
+hostnamectl set-hostname ${host_name}
 
 echo "127.0.0.1	$(hostname)" >> /etc/hosts 
 
 # Create directory to host profile.d scripts
+echo "Creating ${pen_f} folders"
 run_kali "mkdir ${pen_f} \
     ${pen_f}/configs \
     ${pen_f}/exploits \
@@ -59,6 +64,7 @@ run_kali "mkdir ${pen_f} \
 timedatectl set-timezone America/New_York
 
 # Configure tmux
+echo "Configuring tmux and zsh"
 
 run_kali "cat <<EOT >> /home/kali/.tmux.conf
 set -g mouse on 
@@ -82,12 +88,15 @@ EOT"
 
 # autorecon
 
+echo "Installing Autorecon in ${pen_f}/venv/autorecon"
+
 run_kali "python3 -m venv ${pen_f}/venv/autorecon > /dev/null;
 source ${pen_f}/venv/autorecon/bin/activate > /dev/null;
 python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git > /dev/null;
 deactivate > /dev/null; " 
 
 # foxproxy
+echo "Installing FoxyProxy in Firefox"
 
 cat /usr/share/firefox-esr/distribution/policies.json |\
 jq '.policies += {"Extensions"}' |\
@@ -96,3 +105,5 @@ jq '.policies += {"ExtensionUpdate":"true"}' |\
 jq --unbuffered  > ${pen_f}/trash/policies.json
 cp ${pen_f}/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
 rm ${pen_f}/trash/policies.json
+
+echo "Done"
