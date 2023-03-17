@@ -82,10 +82,10 @@ EOT"
 
 # autorecon
 
-run_kali "python3 -m venv ${pen_f}/venv/autorecon ;
-source ${pen_f}/venv/autorecon/bin/activate ;
-python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git ;
-deactivate ; " 
+run_kali "python3 -m venv ${pen_f}/venv/autorecon > /dev/null;
+source ${pen_f}/venv/autorecon/bin/activate > /dev/null;
+python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git > /dev/null;
+deactivate > /dev/null; " 
 
 # foxproxy
 
