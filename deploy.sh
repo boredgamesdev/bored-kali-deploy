@@ -18,6 +18,7 @@ apt-get -y install \
     ca-certificates \
     curl \
     gnupg \
+    python3-venv \
     lsb-release
 
 mkdir -m 0755 -p /etc/apt/keyrings
@@ -43,6 +44,7 @@ apt-get -y install \
     chromium \
     jq \
     tmux \
+    python3-venv
 
 ################################################################################
 # System configuration
@@ -95,3 +97,12 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 EOT
+
+# autorecon
+
+apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf python3-pip
+
+python3 -m venv /home/kali/pentesting/venv/autorecon
+source /home/kali/pentesting/venv/autorecon/bin/activate
+python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git
+deactivate
