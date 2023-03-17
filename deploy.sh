@@ -12,10 +12,34 @@ apt-get -y install \
     ca-certificates \
     curl \
     gnupg \
-    python3-venv \
-    lsb-release
-    
-apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf python3-pip
+    lsb-release \
+    seclists \
+    curl \
+    dnsrecon \
+    enum4linux \
+    feroxbuster \
+    gobuster \
+    impacket-scripts \
+    nbtscan \
+    nikto \
+    nmap \
+    onesixtyone \
+    oscanner \
+    redis-tools \
+    smbclient \
+    smbmap \
+    snmp \
+    sslscan \
+    sipvicious \
+    tnscmd10g \
+    whatweb \
+    wkhtmltopdf \
+    python3-pip \ 
+    evil-winrm \
+    chromium \
+    jq \
+    tmux \
+    python3-venv
 
 
 ################################################################################
@@ -23,30 +47,11 @@ apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-s
 ################################################################################
 apt-get remove docker docker-engine docker.io containerd runc
 
-mkdir -m 0755 -p /etc/apt/keyrings
+apt install -y docker.io docker-compose
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-  
-apt-get update
-
-apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl enable docker --now
 
 usermod -aG docker kali
-
-################################################################################
-# Package list
-################################################################################
-
-apt-get -y install \
-    evil-winrm \
-    chromium \
-    jq \
-    tmux \
-    python3-venv
 
 ################################################################################
 # System configuration
