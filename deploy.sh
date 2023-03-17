@@ -1,27 +1,26 @@
 #!/bin/bash
 
 pen_f="/home/kali/pentest"
-to_null="> /dev/null"
 
 ################################################################################
 # linux
 ################################################################################
 
 # Update and install dependencies
-apt-get update ${to_null}
+apt-get update > /dev/null
 
 apt-get -y install ca-certificates curl gnupg lsb-release seclists curl dnsrecon enum4linux feroxbuster gobuster \
 impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g \
-whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator ${to_null}
+whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator > /dev/null
 
 
 ################################################################################
 # Install Docker 
 ################################################################################
 
-apt install -y docker.io docker-compose ${to_null}
+apt-get install -y docker.io docker-compose > /dev/null
 
-systemctl enable docker --now ${to_null}
+systemctl enable docker --now > /dev/null
 
 usermod -aG docker kali 
 
@@ -86,7 +85,7 @@ EOT"
 run_kali "python3 -m venv ${pen_f}/venv/autorecon ;
 source ${pen_f}/venv/autorecon/bin/activate ;
 python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git ;
-deactivate ; " ${to_null}
+deactivate ; " 
 
 # foxproxy
 
