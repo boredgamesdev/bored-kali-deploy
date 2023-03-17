@@ -62,7 +62,7 @@ timedatectl set-timezone America/New_York
 
 run_kali "cat <<EOT >> /home/kali/.tmux.conf
 set -g mouse on 
-set -g history-limit 5000
+set -g history-limit 10000
 EOT"
 
 # Configure zsh
