@@ -1,0 +1,25 @@
+{
+  "9euto1679082707001": {
+    "type": 1,
+    "color": "#66cc66",
+    "title": "8080",
+    "active": true,
+    "address": "127.0.0.1",
+    "port": 8080,
+    "proxyDNS": false,
+    "username": "",
+    "password": "",
+    "blackPatterns": [],
+    "whitePatterns": [],
+    "pacURL": "",
+    "index": 9007199254740990
+  },
+  "logging": {
+    "size": 100,
+    "active": false
+  },
+  "mode": "disabled",
+  "browserVersion": "102.8.0",
+  "foxyProxyVersion": "7.5.1",
+  "foxyProxyEdition": "basic"
+}
