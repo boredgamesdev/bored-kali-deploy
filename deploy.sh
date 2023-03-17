@@ -5,7 +5,7 @@ pen_f="/home/kali/pentest"
 ################################################################################
 # linux
 ################################################################################
-echo "\nInstalling apt packages\n"
+echo -e "\nInstalling apt packages\n"
 
 # Update and install dependencies
 apt-get update > /dev/null
@@ -18,7 +18,7 @@ whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3
 ################################################################################
 # Install Docker 
 ################################################################################
-echo "\nInstalling Docker\n"
+echo -e "\nInstalling Docker\n"
 
 apt-get -y install docker.io docker-compose > /dev/null
 
@@ -45,10 +45,10 @@ host_name="kalibored-$RANDOM"
 echo "\nSetting hostname to ${host_name}\n"
 hostnamectl set-hostname ${host_name}
 
-echo "127.0.0.1	$(hostname)" >> /etc/hosts 
+echo -e "127.0.0.1	$(hostname)" >> /etc/hosts 
 
 # Create directory to host profile.d scripts
-echo "\nCreating ${pen_f} folders\n"
+echo -e "\nCreating ${pen_f} folders\n"
 run_kali "mkdir ${pen_f} \
     ${pen_f}/configs \
     ${pen_f}/exploits \
@@ -64,7 +64,7 @@ run_kali "mkdir ${pen_f} \
 timedatectl set-timezone America/New_York
 
 # Configure tmux
-echo "\nConfiguring tmux and zsh\n"
+echo -e "\nConfiguring tmux and zsh\n"
 
 run_kali "cat <<EOT >> /home/kali/.tmux.conf
 set -g mouse on 
@@ -88,7 +88,7 @@ EOT"
 
 # autorecon
 
-echo "\nInstalling Autorecon in ${pen_f}/venv/autorecon\n"
+echo -e "\nInstalling Autorecon in ${pen_f}/venv/autorecon\n"
 
 run_kali "python3 -m venv ${pen_f}/venv/autorecon > /dev/null;
 source ${pen_f}/venv/autorecon/bin/activate > /dev/null;
@@ -96,7 +96,7 @@ python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git > /dev/null
 deactivate > /dev/null; " 
 
 # foxproxy
-echo "\nInstalling FoxyProxy in Firefox\n"
+echo -e "\nInstalling FoxyProxy in Firefox\n"
 
 cat /usr/share/firefox-esr/distribution/policies.json |\
 jq '.policies += {"Extensions"}' |\
@@ -106,4 +106,4 @@ jq --unbuffered  > ${pen_f}/trash/policies.json
 cp ${pen_f}/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
 rm ${pen_f}/trash/policies.json
 
-echo "\nDone\n"
+echo -e "\nDone\n"
