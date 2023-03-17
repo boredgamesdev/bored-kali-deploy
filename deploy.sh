@@ -74,15 +74,15 @@ hostnamectl set-hostname kalibored-$RANDOM
 echo "127.0.0.1	$(hostname)" >> /etc/hosts
 
 # Create directory to host profile.d scripts
-run_kali "mkdir /home/kali/pentesting"
-run_kali "mkdir /home/kali/pentesting/configs"
-run_kali "mkdir /home/kali/pentesting/exploits"
-run_kali "mkdir /home/kali/pentesting/scans"
-run_kali "mkdir /home/kali/pentesting/scripts"
-run_kali "mkdir /home/kali/pentesting/trash"
-run_kali "mkdir /home/kali/pentesting/venv"
-run_kali "mkdir /home/kali/pentesting/vpn"
-run_kali "mkdir /home/kali/pentesting/webshells"
+run_kali "mkdir /home/kali/pentesting \
+    /home/kali/pentesting/configs \
+    /home/kali/pentesting/exploits \
+    /home/kali/pentesting/scans \
+    /home/kali/pentesting/scripts \
+    /home/kali/pentesting/trash \
+    /home/kali/pentesting/venv \
+    /home/kali/pentesting/vpn \
+    /home/kali/pentesting/webshells"
 
 # Configure timezone
 
@@ -90,16 +90,16 @@ timedatectl set-timezone America/New_York
 
 # Configure tmux
 
-cat <<EOT >> /home/kali/.tmux.conf
+run_kali "cat <<EOT >> /home/kali/.tmux.conf
 set -g mouse on 
 set -g history-limit 5000
-EOT
+EOT"
 
 # Configure zsh
 sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /home/kali/.zshrc
 sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /home/kali/.zshrc
 
-cat <<EOT >> /home/kali/.zshrc
+run_kali "cat <<EOT >> /home/kali/.zshrc
 # Custom
 
 setopt share_history         
@@ -108,7 +108,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
-EOT
+EOT"
 
 # autorecon
 
