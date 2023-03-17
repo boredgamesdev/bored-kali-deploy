@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pen_f="/home/kali/pentest"
-to_null = "> /dev/null"
+to_null="> /dev/null"
 
 ################################################################################
 # linux
