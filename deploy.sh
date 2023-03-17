@@ -16,7 +16,6 @@ whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3
 ################################################################################
 # Install Docker 
 ################################################################################
-apt-get remove docker docker-engine docker.io containerd runc
 
 apt install -y docker.io docker-compose
 
