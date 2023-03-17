@@ -47,12 +47,12 @@ echo "127.0.0.1	$(hostname)" >> /etc/hosts
 run_kali "mkdir ${pen_f} \
     ${pen_f}/configs \
     ${pen_f}/exploits \
-    ${pen_f}/pentest/scans \
-    ${pen_f}/pentest/scripts \
-    ${pen_f}/pentest/trash \
-    ${pen_f}/pentest/venv \
-    ${pen_f}/pentest/vpn \
-    ${pen_f}/pentest/webshells"
+    ${pen_f}/scans \
+    ${pen_f}/scripts \
+    ${pen_f}/trash \
+    ${pen_f}/venv \
+    ${pen_f}/vpn \
+    ${pen_f}/webshells"
 
 # Configure timezone
 
