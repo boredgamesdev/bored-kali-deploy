@@ -112,7 +112,7 @@ EOT
 
 # autorecon
 
-run_kali "python3 -m venv /home/kali/pentesting/venv/autorecon"
-run_kali "source /home/kali/pentesting/venv/autorecon/bin/activate"
-run_kali "python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git"
-run_kali "deactivate"
+python3 -m venv /home/kali/pentesting/venv/autorecon
+source /home/kali/pentesting/venv/autorecon/bin/activate
+python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git
+deactivate
