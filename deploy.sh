@@ -8,18 +8,20 @@
 # Update and install dependencies
 apt-get update
 
-
-################################################################################
-# Install Docker 
-################################################################################
-apt-get remove docker docker-engine docker.io containerd runc
-
 apt-get -y install \
     ca-certificates \
     curl \
     gnupg \
     python3-venv \
     lsb-release
+    
+apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf python3-pip
+
+
+################################################################################
+# Install Docker 
+################################################################################
+apt-get remove docker docker-engine docker.io containerd runc
 
 mkdir -m 0755 -p /etc/apt/keyrings
 
