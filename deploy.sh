@@ -106,4 +106,11 @@ jq --unbuffered  > ${pen_f}/trash/policies.json
 cp ${pen_f}/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
 rm ${pen_f}/trash/policies.json
 
-echo -e "\nDone\n"
+# Final apt update
+echo -e "\nFinal apt update and upgrade\n"
+
+apt-get update > /dev/null
+apt-get -y upgrade > /dev/null
+
+echo -e "\nDone, please reboot\n"
+
