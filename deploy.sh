@@ -41,7 +41,7 @@ run_kali() { runuser -l kali -c "$@" ;}
 sed -i 's/ApplicationTransparency=5/ApplicationTransparency=0/g' /home/kali/.config/qterminal.org/qterminal.ini 
 
 # Change hostname
-host_name="kalibored-$RANDOM"
+host_name="kali-$RANDOM"
 echo "\nSetting hostname to ${host_name}\n"
 hostnamectl set-hostname ${host_name}
 
