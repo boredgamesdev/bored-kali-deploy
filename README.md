@@ -4,3 +4,4 @@ todo:
   gunzip rockyou
   add posh
   add rlwrap
+  lower proxychains
