@@ -24,7 +24,7 @@ UNDERLINED="${C}[5m"
 ITALIC="${C}[3m"
 
 if [ "$EUID" -ne 0 ]
-  then echo "${RED}Please run as root${RED}"
+  then echo "${RED}Please run as root"
   exit
 fi
 
@@ -33,7 +33,7 @@ pen_f="/home/kali/pentest"
 ################################################################################
 # linux
 ################################################################################
-printf "${GREEN}\nInstalling apt packages\n${GREEN}"
+printf "${GREEN}\nInstalling apt packages\n"
 
 # Update and install dependencies
 apt-get update > /dev/null
@@ -47,7 +47,7 @@ bloodhound > /dev/null
 ################################################################################
 # Install Docker 
 ################################################################################
-printf "${GREEN}\nInstalling Docker\n${GREEN}"
+printf "${GREEN}\nInstalling Docker\n"
 
 apt-get -y install docker.io docker-compose > /dev/null
 
@@ -71,13 +71,13 @@ sed -i 's/ApplicationTransparency=5/ApplicationTransparency=0/g' /home/kali/.con
 
 # Change hostname
 host_name="kaliplus-$RANDOM"
-printf "\n${GREEN}Setting hostname to ${BLUE}${host_name}${BLUE}\n${GREEN}"
+printf "\n${GREEN}Setting hostname to ${BLUE}${host_name}${BLUE}\n"
 hostnamectl set-hostname ${host_name}
 
 echo -e "127.0.0.1	$(hostname)" >> /etc/hosts 
 
 # Create directory to host profile.d scripts
-printf "${GREEN}\nCreating ${pen_f} folders\n${GREEN}"
+printf "${GREEN}\nCreating ${pen_f} folders\n"
 run_kali "mkdir ${pen_f} \
     ${pen_f}/configs \
     ${pen_f}/exploits \
@@ -93,7 +93,7 @@ run_kali "mkdir ${pen_f} \
 timedatectl set-timezone America/New_York
 
 # Configure tmux
-printf "${GREEN}\nConfiguring tmux and zsh\n${GREEN}"
+printf "${GREEN}\nConfiguring tmux and zsh\n"
 
 run_kali "cat <<EOT >> /home/kali/.tmux.conf
 set -g mouse on 
@@ -117,7 +117,7 @@ EOT"
 
 # autorecon
 
-printf "${GREEN}\nInstalling Autorecon in ${pen_f}/venv/autorecon\n${GREEN}"
+printf "${GREEN}\nInstalling Autorecon in ${pen_f}/venv/autorecon\n"
 
 run_kali "python3 -m venv ${pen_f}/venv/autorecon > /dev/null;
 source ${pen_f}/venv/autorecon/bin/activate > /dev/null;
@@ -125,7 +125,7 @@ python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git > /dev/null
 deactivate > /dev/null; " 
 
 # foxproxy
-printf "${GREEN}\nInstalling FoxyProxy in Firefox\n${GREEN}"
+printf "${GREEN}\nInstalling FoxyProxy in Firefox\n"
 
 cat /usr/share/firefox-esr/distribution/policies.json |\
 jq '.policies += {"Extensions"}' |\
@@ -137,16 +137,16 @@ rm ${pen_f}/trash/policies.json
 
 
 # Rockyou
-printf "${GREEN}\nUnzipping Rockyou\n${GREEN}"
+printf "${GREEN}\nUnzipping Rockyou\n"
 gunzip /usr/share/wordlists/rockyou.txt.gz 
 
 # Configure socks proxy
-printf "${GREEN}\nLower socks proxy timeout, helps with nmap scanning though socks${GREEN}\n${RED}WARNING YOU MAY NEED TO CHANGE THIS ON A SLOWER NETWORK${RED}\n"
+printf "${GREEN}\nLower socks proxy timeout, helps with nmap scanning though socks\n${RED}WARNING YOU MAY NEED TO CHANGE THIS ON A SLOWER NETWORK${RED}\n"
 sed -i 's/tcp_read_time_out 15000/tcp_read_time_out 1500/g' /etc/proxychains4.conf
 sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains4.conf
 
 # Downloading common scripts
-printf "${GREEN}\nDownloading popular scripts\n${GREEN}"
+printf "${GREEN}\nDownloading popular scripts\n"
 run_kali "\
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${pen_f}/scripts/linpeas.sh 2>&1 > /dev/null; \
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${pen_f}/scripts/winPEASany.exe 2>&1 > /dev/null; \
@@ -156,10 +156,10 @@ wget https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/do
 wget https://raw.githubusercontent.com/WhiteWinterWolf/wwwolf-php-webshell/master/webshell.php -O ${pen_f}/webshells/wolf.php 2>&1 > /dev/null;"
 
 # Final apt update
-printf "${GREEN}\nFinal apt update and upgrade\n${GREEN}"
+printf "${GREEN}\nFinal apt update and upgrade\n"
 
 apt-get -y update > /dev/null
 NEEDRESTART_MODE=a apt-get full-upgrade --yes > /dev/null
 
-printf "${GREEN}\nDone, please reboot\n${GREEN}"
+printf "${GREEN}\nDone, please reboot\n"
 
