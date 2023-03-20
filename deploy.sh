@@ -2,12 +2,7 @@
 
 C=$(printf '\033')
 RED="${C}[1;31m"
-SED_RED="${C}[1;31m&${C}[0m"
 GREEN="${C}[1;32m"
-SED_GREEN="${C}[1;32m&${C}[0m"
-YELLOW="${C}[1;33m"
-SED_YELLOW="${C}[1;33m&${C}[0m"
-SED_RED_YELLOW="${C}[1;31;103m&${C}[0m"
 BLUE="${C}[1;34m"
 SED_BLUE="${C}[1;34m&${C}[0m"
 ITALIC_BLUE="${C}[1;34m${C}[3m"
