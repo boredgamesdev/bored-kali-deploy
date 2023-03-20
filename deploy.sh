@@ -148,12 +148,12 @@ sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains
 # Downloading common scripts
 printf "${GREEN}\nDownloading popular scripts\n${NC}"
 run_kali "\
-wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${pen_f}/scripts/linpeas.sh > /dev/null; \
-wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${pen_f}/scripts/winPEASany.exe > /dev/null; \
-wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O ${pen_f}/scripts/winPEAS.bat > /dev/null; \
-wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe -O ${pen_f}/scripts/winPEASany_ofs.exe > /dev/null; \
-wget https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh -O ${pen_f}/scripts/lse.sh > /dev/null; \
-wget https://raw.githubusercontent.com/WhiteWinterWolf/wwwolf-php-webshell/master/webshell.php -O ${pen_f}/webshells/wolf.php > /dev/null;"
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${pen_f}/scripts/linpeas.sh -q; \
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${pen_f}/scripts/winPEASany.exe -q; \
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O ${pen_f}/scripts/winPEAS.bat -q; \
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe -O ${pen_f}/scripts/winPEASany_ofs.exe -q; \
+wget https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh -O ${pen_f}/scripts/lse.sh -q; \
+wget https://raw.githubusercontent.com/WhiteWinterWolf/wwwolf-php-webshell/master/webshell.php -O ${pen_f}/webshells/wolf.php -q;"
 
 # Final apt update
 printf "${GREEN}\nFinal apt update and upgrade\n${NC}"
