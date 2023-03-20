@@ -1,4 +1,5 @@
 # bored-kali-deploy
 
 todo:
-  add check if running as root
+add a bunch of scripts to download
+
