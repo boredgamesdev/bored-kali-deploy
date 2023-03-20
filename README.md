@@ -5,3 +5,4 @@ todo:
   add posh
   add rlwrap
   lower proxychains
+  add sliver
