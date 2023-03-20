@@ -122,6 +122,16 @@ echo -e "\nLower socks proxy timeout, helps with nmap scanning though socks\nWAR
 sed -i 's/tcp_read_time_out 15000/tcp_read_time_out 1500/g' /etc/proxychains4.conf
 sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains4.conf
 
+# Downloading common scripts
+echo -e "\nDownloading popular scripts\n"
+run_kali "\
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${pen_f}/scripts/linpeas.sh 2>&1 > /dev/null \
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${pen_f}/scripts/winPEASany.exe 2>&1 > /dev/null \
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O ${pen_f}/scripts/winPEAS.bat 2>&1 > /dev/null \
+wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe -O ${pen_f}/scripts/winPEASany_ofs.exe 2>&1 > /dev/null \
+wget https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh -O ${pen_f}/scripts/lse.sh 2>&1 > /dev/null \
+wget https://raw.githubusercontent.com/WhiteWinterWolf/wwwolf-php-webshell/master/webshell.php -O ${pen_f}/webshells/wolf.php 2>&1 > /dev/null"
+
 # Final apt update
 echo -e "\nFinal apt update and upgrade\n"
 
