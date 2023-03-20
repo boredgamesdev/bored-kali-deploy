@@ -17,7 +17,8 @@ apt-get update > /dev/null
 
 apt-get -y install ca-certificates curl gnupg lsb-release seclists curl dnsrecon enum4linux feroxbuster gobuster \
 impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g \
-whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator zaproxy sliver rlwrap > /dev/null
+whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator zaproxy sliver rlwrap \
+bloodhound > /dev/null
 
 
 ################################################################################
@@ -125,7 +126,7 @@ sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains
 echo -e "\nFinal apt update and upgrade\n"
 
 apt-get -y update > /dev/null
-apt-get -y -f upgrade > /dev/null
+NEEDRESTART_MODE=a apt-get full-upgrade --yes
 
 echo -e "\nDone, please reboot\n"
 
