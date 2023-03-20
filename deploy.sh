@@ -126,7 +126,7 @@ sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains
 echo -e "\nFinal apt update and upgrade\n"
 
 apt-get -y update > /dev/null
-NEEDRESTART_MODE=a apt-get full-upgrade --yes
+NEEDRESTART_MODE=a apt-get full-upgrade --yes > /dev/null
 
 echo -e "\nDone, please reboot\n"
 
