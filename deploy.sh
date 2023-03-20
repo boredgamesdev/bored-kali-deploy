@@ -106,6 +106,16 @@ jq --unbuffered  > ${pen_f}/trash/policies.json
 cp ${pen_f}/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
 rm ${pen_f}/trash/policies.json
 
+
+# Rockyou
+echo -e "\nUnzipping Rockyou\n"
+gunzip /usr/share/wordlists/rockyou.txt.gz 
+
+# Configure socks proxy
+echo -e "\nLower socks proxy timeout, helps with nmap scanning though socks\nWARNING YOU MAY NEED TO CHANGE THIS ON A SLOWER NETWORK\n"
+sed -i 's/tcp_read_time_out 15000/tcp_read_time_out 1500/g' /etc/proxychains4.conf
+sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains4.conf
+
 # Final apt update
 echo -e "\nFinal apt update and upgrade\n"
 
