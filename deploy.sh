@@ -144,7 +144,7 @@ wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 -O $
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_amd64.gz -O ${pen_f}/scripts/chisel_1.8.1_windows_amd64.gz -q; \
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_386.gz -O ${pen_f}/scripts/chisel_1.8.1_windows_386.gz -q; \
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_386.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_386.gz -q; \
-wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${pen_f}/chisel_1.8.1_linux_amd64.gz -q ;"
+wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_amd64.gz -q ;"
 
 # Final apt update
 printf "${GREEN}\nFinal apt update and upgrade\n${NC}"
