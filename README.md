@@ -2,4 +2,7 @@
 
 todo:
 add a bunch of scripts to download
-
+scoutsuite
+prowlar
+aquatine
+EyeWitness
