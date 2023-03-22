@@ -6,3 +6,4 @@ scoutsuite
 prowlar
 aquatine
 EyeWitness
+bloodhound python
