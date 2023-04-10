@@ -89,6 +89,8 @@ EOT"
 sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /home/kali/.zshrc
 sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /home/kali/.zshrc
 
+run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> /home/kali/.zsh_history"
+
 run_kali "cat <<EOT >> /home/kali/.zshrc
 # Custom
 
