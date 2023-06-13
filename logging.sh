@@ -61,6 +61,7 @@ run_kali "mkdir ${pen_f} \
     ${pen_f}/trash \
     ${pen_f}/venv \
     ${pen_f}/vpn \
+    ${pen_f}/logs \
     ${pen_f}/webshells"
 
 # Configure timezone
