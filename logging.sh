@@ -92,7 +92,7 @@ setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
 EOT"
 
-run_kali "curl -o -  https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/kali/pentest/configs/burplogging.json"
+run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/kali/pentest/configs/burplogging.json"
 
 # Final apt update
 printf "${GREEN}\nFinal apt update and upgrade\n${NC}"
