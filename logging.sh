@@ -94,6 +94,9 @@ EOT"
 
 run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/kali/pentest/configs/burplogging.json"
 
+printf "${RED}\nRUN THIS IN NESSUS TO ENABLE VERBOSE LOGGING\n${NC}"
+printf "${GREEN}\n/opt/nessus/sbin/nessuscli fix --set log_details=true; /opt/nessus/sbin/nessuscli fix --set log_whole_attack=true\n${NC}"
+
 # Final apt update
 printf "${GREEN}\nFinal apt update and upgrade\n${NC}"
 
