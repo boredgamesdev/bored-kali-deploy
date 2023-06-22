@@ -39,10 +39,6 @@ run_kali "mkdir ${pen_f} \
     ${pen_f}/logs \
     ${pen_f}/webshells"
 
-# Configure timezone
-
-timedatectl set-timezone Etc/GMT
-
 # Configure tmux
 printf "${GREEN}\nConfiguring tmux and zsh\n${NC}"
 
