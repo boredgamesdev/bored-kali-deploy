@@ -16,31 +16,6 @@ fi
 pen_f="/home/kali/pentest"
 
 ################################################################################
-# linux
-################################################################################
-printf "${GREEN}\nInstalling apt packages\n${NC}"
-
-# Update and install dependencies
-apt-get update > /dev/null
-
-apt-get -y install ca-certificates curl gnupg lsb-release seclists curl dnsrecon enum4linux feroxbuster gobuster \
-impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g \
-whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator zaproxy sliver rlwrap jython \
-bloodhound xorg xrdp > /dev/null
-
-
-################################################################################
-# Install Docker 
-################################################################################
-printf "${GREEN}\nInstalling Docker\n${NC}"
-
-apt-get -y install docker.io docker-compose > /dev/null
-
-systemctl enable docker --now > /dev/null
-
-usermod -aG docker kali 
-
-################################################################################
 # Setup Runuser
 ################################################################################
 
@@ -92,15 +67,12 @@ setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
 EOT"
 
+printf "${RED}\nLoad the burp config at /home/kali/pentest/configs/burplogging.json\n${NC}"
+
 run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/kali/pentest/configs/burplogging.json"
 
 printf "${RED}\nRUN THIS IN NESSUS TO ENABLE VERBOSE LOGGING\n${NC}"
 printf "${GREEN}\n/opt/nessus/sbin/nessuscli fix --set log_details=true; /opt/nessus/sbin/nessuscli fix --set log_whole_attack=true\n${NC}"
 
-# Final apt update
-printf "${GREEN}\nFinal apt update and upgrade\n${NC}"
 
-apt-get -y update > /dev/null
-NEEDRESTART_MODE=a apt-get full-upgrade --yes > /dev/null
-
-printf "${GREEN}\nDone, please reboot\n${NC}"
+printf "${GREEN}\nDone\n${NC}"
