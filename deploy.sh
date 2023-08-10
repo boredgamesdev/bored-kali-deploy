@@ -20,9 +20,6 @@ pen_f="/home/kali/pentest"
 ################################################################################
 printf "${GREEN}\nInstalling apt packages\n${NC}"
 
-# Update and install dependencies
-apt-get update > /dev/null
-
 apt-get -y install ca-certificates curl gnupg lsb-release seclists curl dnsrecon enum4linux feroxbuster gobuster \
 impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g \
 whatweb wkhtmltopdf python3-pip evil-winrm chromium jq tmux python3-venv python3-pip terminator zaproxy sliver rlwrap jython \
@@ -147,12 +144,6 @@ wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_wi
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_386.gz -O ${pen_f}/scripts/chisel_1.8.1_windows_386.gz -q; \
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_386.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_386.gz -q; \
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_amd64.gz -q ;"
-
-# Final apt update
-printf "${GREEN}\nFinal apt update and upgrade\n${NC}"
-
-apt-get -y update > /dev/null
-NEEDRESTART_MODE=a apt-get full-upgrade --yes > /dev/null
 
 printf "${GREEN}\nDone, please reboot\n${NC}"
 
