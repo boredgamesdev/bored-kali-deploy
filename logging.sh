@@ -27,7 +27,7 @@ run_kali() { runuser -l $(whoami) -c "$@" ;}
 
 # Create directory to host profile.d scripts
 printf "${GREEN}\nCreating ${pen_f} folders\n${NC}"
-run_kali "mkdir ${pen_f} \
+run_kali "mkdir -p ${pen_f} \
     ${pen_f}/configs \
     ${pen_f}/exploits \
     ${pen_f}/scans \
