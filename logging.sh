@@ -19,7 +19,7 @@ pen_f="/home/$(whoami)/pentest"
 # Setup Runuser
 ################################################################################
 
-run_kali() { runuser -l kali -c "$@" ;} 
+run_kali() { runuser -l $(whoami) -c "$@" ;} 
 
 ################################################################################
 # System configuration
