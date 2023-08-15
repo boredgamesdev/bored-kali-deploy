@@ -13,7 +13,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-pen_f="/home/kali/pentest"
+pen_f="/home/$(whoami)/pentest"
 
 ################################################################################
 # Setup Runuser
