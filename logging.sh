@@ -42,19 +42,19 @@ run_kali "mkdir ${pen_f} \
 # Configure tmux
 printf "${GREEN}\nConfiguring tmux and zsh\n${NC}"
 
-run_kali "cat <<EOT >> /home/kali/.tmux.conf
+run_kali "cat <<EOT >> /home/$(whoami)/.tmux.conf
 set -g mouse on 
 set -g history-limit 10000
 EOT"
 
 # Configure zsh
-sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /home/kali/.zshrc
-sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /home/kali/.zshrc
-sed -i 's/setopt hist_ignore_dups//g' /home/kali/.zshrc
-sed -i 's/setopt hist_ignore_space//g' /home/kali/.zshrc
+sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /home/$(whoami)/.zshrc
+sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /home/$(whoami)/.zshrc
+sed -i 's/setopt hist_ignore_dups//g' /home/$(whoami)/.zshrc
+sed -i 's/setopt hist_ignore_space//g' /home/$(whoami)/.zshrc
 
 
-run_kali "cat <<EOT >> /home/kali/.zshrc
+run_kali "cat <<EOT >> /home/$(whoami)/.zshrc
 # Custom
 
 setopt share_history         
@@ -63,9 +63,9 @@ setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
 EOT"
 
-printf "${RED}\nLoad the burp config at /home/kali/pentest/configs/burplogging.json\n${NC}"
+printf "${RED}\nLoad the burp config at /home/$(whoami)/pentest/configs/burplogging.json\n${NC}"
 
-run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/kali/pentest/configs/burplogging.json"
+run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/$(whoami)/pentest/configs/burplogging.json"
 
 printf "${RED}\nRUN THIS IN NESSUS TO ENABLE VERBOSE LOGGING\n${NC}"
 printf "${GREEN}\n/opt/nessus/sbin/nessuscli fix --set log_details=true; /opt/nessus/sbin/nessuscli fix --set log_whole_attack=true\n${NC}"
