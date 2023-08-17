@@ -8,11 +8,6 @@ NC="${C}[0m"
 UNDERLINED="${C}[5m"
 ITALIC="${C}[3m"
 
-if [ "$EUID" -ne 0 ]
-  then echo "${RED}Please run as sudo"
-  exit
-fi
-
 pen_f="/home/$(whoami)/pentest"
 
 ################################################################################
