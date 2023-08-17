@@ -52,7 +52,7 @@ setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
 EOT
 
-${RED}\nLoad the burp config at /home/$(whoami)/pentest/configs/burplogging.json\n${NC}
+printf "${RED}\nLoad the burp config at /home/$(whoami)/pentest/configs/burplogging.json\n${NC}"
 
 curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/$(whoami)/pentest/configs/burplogging.json
 
