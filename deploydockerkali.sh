@@ -13,7 +13,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-pen_f="/home/$(whoami)/pentest"
+pen_f="/root/pentest"
 
 ################################################################################
 # linux
@@ -27,40 +27,12 @@ bloodhound xorg xrdp > /dev/null
 
 
 ################################################################################
-# Install Docker 
-################################################################################
-printf "${GREEN}\nInstalling Docker\n${NC}"
-
-apt-get -y install docker.io docker-compose > /dev/null
-
-systemctl enable docker --now > /dev/null
-
-usermod -aG docker kali 
-
-################################################################################
-# Setup Runuser
-################################################################################
-
-run_kali() { runuser -l $(whoami) -c "$@" ;} 
-
-################################################################################
 # System configuration
 ################################################################################
 
-# Change transparency of qterminal to 0
-
-sed -i 's/ApplicationTransparency=5/ApplicationTransparency=0/g' /home/kali/.config/qterminal.org/qterminal.ini 
-
-# Change hostname
-host_name="kaliplus-$RANDOM"
-printf "\n${GREEN}Setting hostname to ${BLUE}${host_name}${NC}\n"
-hostnamectl set-hostname ${host_name}
-
-echo -e "127.0.0.1	$(hostname)" >> /etc/hosts 
-
 # Create directory to host profile.d scripts
 printf "${GREEN}\nCreating ${pen_f} folders\n${NC}"
-run_kali "mkdir ${pen_f} \
+mkdir ${pen_f} \
     ${pen_f}/configs \
     ${pen_f}/exploits \
     ${pen_f}/scans \
@@ -68,7 +40,7 @@ run_kali "mkdir ${pen_f} \
     ${pen_f}/trash \
     ${pen_f}/venv \
     ${pen_f}/vpn \
-    ${pen_f}/webshells"
+    ${pen_f}/webshells
 
 # Configure timezone
 
@@ -77,18 +49,18 @@ timedatectl set-timezone America/New_York
 # Configure tmux
 printf "${GREEN}\nConfiguring tmux and zsh\n${NC}"
 
-run_kali "cat <<EOT >> /home/kali/.tmux.conf
+cat <<EOT >> /root/.tmux.conf
 set -g mouse on 
 set -g history-limit 10000
-EOT"
+EOT
 
 # Configure zsh
-sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /home/kali/.zshrc
-sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /home/kali/.zshrc
+sed -i 's/HISTSIZE=1000/HISTSIZE=1000000000/g' /root/.zshrc
+sed -i 's/SAVEHIST=2000/SAVEHIST=1000000000/g' /root/.zshrc
 
-run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> /home/kali/.zsh_history"
+curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> /root/.zsh_history
 
-run_kali "cat <<EOT >> /home/kali/.zshrc
+cat <<EOT >> /root/.zshrc
 # Custom
 
 setopt share_history         
@@ -97,28 +69,16 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
-EOT"
+EOT
 
 # autorecon
 
 printf "${GREEN}\nInstalling Autorecon in ${pen_f}/venv/autorecon\n${NC}"
 
-run_kali "python3 -m venv ${pen_f}/venv/autorecon > /dev/null;
+python3 -m venv ${pen_f}/venv/autorecon > /dev/null;
 source ${pen_f}/venv/autorecon/bin/activate > /dev/null;
 python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git > /dev/null;
-deactivate > /dev/null; " 
-
-# foxproxy
-printf "${GREEN}\nInstalling FoxyProxy in Firefox\n${NC}"
-
-cat /usr/share/firefox-esr/distribution/policies.json |\
-jq '.policies += {"Extensions"}' |\
-jq '.policies.Extensions += {"Install":["https://addons.mozilla.org/firefox/downloads/file/3616827/foxyproxy_basic-7.5.1.xpi"]}' |\
-jq '.policies += {"ExtensionUpdate":"true"}' |\
-jq --unbuffered  > ${pen_f}/trash/policies.json
-cp ${pen_f}/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
-rm ${pen_f}/trash/policies.json
-
+deactivate > /dev/null; 
 
 # Rockyou
 printf "${GREEN}\nUnzipping Rockyou\n${NC}"
@@ -131,7 +91,7 @@ sed -i 's/tcp_connect_time_out 8000/tcp_connect_time_out 800/g' /etc/proxychains
 
 # Downloading common scripts
 printf "${GREEN}\nDownloading popular scripts\n${NC}"
-run_kali "\
+
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${pen_f}/scripts/linpeas.sh -q; \
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${pen_f}/scripts/winpeasany.exe -q; \
 wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O ${pen_f}/scripts/winpeas.bat -q; \
@@ -143,7 +103,7 @@ wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 -O $
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_amd64.gz -O ${pen_f}/scripts/chisel_1.8.1_windows_amd64.gz -q; \
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_386.gz -O ${pen_f}/scripts/chisel_1.8.1_windows_386.gz -q; \
 wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_386.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_386.gz -q; \
-wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_amd64.gz -q ;"
+wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${pen_f}/scripts/chisel_1.8.1_linux_amd64.gz -q ;
 
 printf "${GREEN}\nDone, please reboot\n${NC}"
 
