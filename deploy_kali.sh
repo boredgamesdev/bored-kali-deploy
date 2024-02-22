@@ -67,7 +67,6 @@ configure_logging() {
 	sed -i 's/setopt hist_ignore_space//g' ${home_folder}.zshrc
 
 cat <<EOT >> ${home_folder}.zshrc
-# Custom
 
 setopt share_history         
 setopt INC_APPEND_HISTORY
@@ -94,7 +93,7 @@ configure_default() {
     run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> ${home_folder}.bash_history"
 
     run_kali cat <<EOT >> ${home_folder}.zshrc
-# Custom
+
 setopt share_history         
 setopt INC_APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
