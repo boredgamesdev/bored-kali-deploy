@@ -130,9 +130,9 @@ configure_system() {
     EOT"
 
     # autorecon
-    printf "${GREEN}\nInstalling Autorecon in ${home_folder}venv/autorecon\n${NC}"
-    run_kali "python3 -m venv ${home_folder}venv/autorecon > /dev/null;
-    source ${home_folder}venv/autorecon/bin/activate > /dev/null;
+    printf "${GREEN}\nInstalling Autorecon in ${home_folder}pentest/venv/autorecon\n${NC}"
+    run_kali "python3 -m venv ${home_folder}pentest/venv/autorecon > /dev/null;
+    source ${home_folder}pentest/venv/autorecon/bin/activate > /dev/null;
     python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git > /dev/null;
     deactivate > /dev/null; " 
 
@@ -223,5 +223,3 @@ case "$1" in
 esac
 
 
-
-# Rest of your script goes here...
