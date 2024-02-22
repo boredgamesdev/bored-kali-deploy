@@ -16,6 +16,23 @@ fi
 pen_f="/home/$(whoami)/pentest"
 
 ################################################################################
+# help
+################################################################################
+
+show_help() {
+    echo "Usage: $(basename "$0") [options]"
+    echo "Options:"
+    echo "  -h, --help      Show this help message and exit"
+    # Add more options and descriptions here if needed
+}
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    show_help
+    exit 0
+fi
+
+
+################################################################################
 # linux
 ################################################################################
 printf "${GREEN}\nInstalling apt packages\n${NC}"
