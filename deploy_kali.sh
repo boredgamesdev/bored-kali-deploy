@@ -1,5 +1,13 @@
 #!/bin/bash
 
+C=$(printf '\033')
+RED="${C}[1;31m"
+GREEN="${C}[1;32m"
+BLUE="${C}[1;34m"
+NC="${C}[0m"
+UNDERLINED="${C}[5m"
+ITALIC="${C}[3m"
+
 SCRIPT_VERSION="1.0"
 
 if [ "$EUID" -ne 0 ]
@@ -58,18 +66,18 @@ configure_logging() {
 	sed -i 's/setopt hist_ignore_dups//g' ${home_folder}.zshrc
 	sed -i 's/setopt hist_ignore_space//g' ${home_folder}.zshrc
 
-"cat <<EOT >> ${home_folder}.zshrc
+cat <<EOT >> ${home_folder}.zshrc
 # Custom
 
 setopt share_history         
 setopt INC_APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
-EOT"
+EOT
 
 	printf "${RED}\nLoad the burp config at /home/$(whoami)/pentest/configs/burplogging.json\n${NC}"
 
-	curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > /home/$(whoami)/pentest/configs/burplogging.json
+	curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/burplogging.json > ${home_folder}pentest/configs/burplogging.json
 
 	printf "${RED}\nRUN THIS IN NESSUS TO ENABLE VERBOSE LOGGING\n${NC}"
 	printf "${GREEN}\n/opt/nessus/sbin/nessuscli fix --set log_details=true; /opt/nessus/sbin/nessuscli fix --set log_whole_attack=true\n${NC}"
@@ -85,7 +93,7 @@ configure_default() {
     run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> ${home_folder}.zsh_history"
     run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> ${home_folder}.bash_history"
 
-    run_kali "cat <<EOT >> ${home_folder}.zshrc
+    run_kali cat <<EOT >> ${home_folder}.zshrc
 # Custom
 setopt share_history         
 setopt INC_APPEND_HISTORY
@@ -93,7 +101,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
-EOT"
+EOT
 }
 
 configure_system() {
