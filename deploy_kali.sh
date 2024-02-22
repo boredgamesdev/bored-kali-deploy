@@ -58,15 +58,14 @@ configure_logging() {
 	sed -i 's/setopt hist_ignore_dups//g' ${home_folder}.zshrc
 	sed -i 's/setopt hist_ignore_space//g' ${home_folder}.zshrc
 
+"cat <<EOT >> ${home_folder}.zshrc
+# Custom
 
-	"cat <<EOT >> ${home_folder}.zshrc
-	# Custom
-
-	setopt share_history         
-	setopt INC_APPEND_HISTORY
-	setopt HIST_FIND_NO_DUPS
-	setopt EXTENDED_HISTORY
-	EOT"
+setopt share_history         
+setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt EXTENDED_HISTORY
+EOT"
 
 	printf "${RED}\nLoad the burp config at /home/$(whoami)/pentest/configs/burplogging.json\n${NC}"
 
@@ -87,14 +86,14 @@ configure_default() {
     run_kali "curl -o - https://raw.githubusercontent.com/boredgamesdev/bored-kali-deploy/main/configs/history.txt >> ${home_folder}.bash_history"
 
     run_kali "cat <<EOT >> ${home_folder}.zshrc
-    # Custom
-    setopt share_history         
-    setopt INC_APPEND_HISTORY
-    setopt HIST_FIND_NO_DUPS
-    setopt HIST_IGNORE_ALL_DUPS
-    setopt HIST_SAVE_NO_DUPS
-    setopt HIST_REDUCE_BLANKS
-    EOT"
+# Custom
+setopt share_history         
+setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+EOT"
 }
 
 configure_system() {
@@ -136,9 +135,9 @@ configure_system() {
     jq '.policies += {"Extensions"}' |\
     jq '.policies.Extensions += {"Install":["https://addons.mozilla.org/firefox/downloads/file/3616827/foxyproxy_basic-7.5.1.xpi"]}' |\
     jq '.policies += {"ExtensionUpdate":"true"}' |\
-    jq --unbuffered  > ${home_folder}/trash/policies.json
-    cp ${home_folder}trash/policies.json /usr/share/firefox-esr/distribution/policies.json
-    rm ${home_folder}trash/policies.json
+    jq --unbuffered  > ${home_folder}pentest/trash/policies.json
+    cp ${home_folder}pentest/trash/policies.json /usr/share/firefox-esr/distribution/policies.json
+    rm ${home_folder}pentest/trash/policies.json
 
     # Rockyou
     printf "${GREEN}\nUnzipping Rockyou\n${NC}"
