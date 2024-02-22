@@ -153,18 +153,18 @@ configure_system() {
 download_scripts() {
     printf "${GREEN}\nDownloading popular scripts\n${NC}"
     run_kali "\
-    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${home_folder}scripts/linpeas.sh -q; \
-    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${home_folder}scripts/winpeasany.exe -q; \
-    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O ${home_folder}scripts/winpeas.bat -q; \
-    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe -O ${home_folder}scripts/winpeasany_ofs.exe -q; \
-    wget https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh -O ${home_folder}scripts/lse.sh -q; \
-    wget https://raw.githubusercontent.com/WhiteWinterWolf/wwwolf-php-webshell/master/webshell.php -O ${home_folder}webshells/wolf.php -q; \
-    wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy64 -O ${home_folder}scripts/pspy64 -q; \
-    wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 -O ${home_folder}scripts/pspy32 -q; \
-    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_amd64.gz -O ${home_folder}scripts/chisel_1.8.1_windows_amd64.gz -q; \
-    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_386.gz -O ${home_folder}scripts/chisel_1.8.1_windows_386.gz -q; \
-    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_386.gz -O ${home_folder}scripts/chisel_1.8.1_linux_386.gz -q; \
-    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${home_folder}scripts/chisel_1.8.1_linux_amd64.gz -q ;"
+    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O ${home_folder}pentest/scripts/linpeas.sh -q; \
+    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O ${home_folder}pentest/scripts/winpeasany.exe -q; \
+    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O ${home_folder}pentest/scripts/winpeas.bat -q; \
+    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany_ofs.exe -O ${home_folder}pentest/scripts/winpeasany_ofs.exe -q; \
+    wget https://github.com/diego-treitos/linux-smart-enumeration/releases/latest/download/lse.sh -O ${home_folder}pentest/scripts/lse.sh -q; \
+    wget https://raw.githubusercontent.com/WhiteWinterWolf/wwwolf-php-webshell/master/webshell.php -O ${home_folder}pentest/webshells/wolf.php -q; \
+    wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy64 -O ${home_folder}pentest/scripts/pspy64 -q; \
+    wget https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 -O ${home_folder}pentest/scripts/pspy32 -q; \
+    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_amd64.gz -O ${home_folder}pentest/scripts/chisel_1.8.1_windows_amd64.gz -q; \
+    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_windows_386.gz -O ${home_folder}pentest/scripts/chisel_1.8.1_windows_386.gz -q; \
+    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_386.gz -O ${home_folder}pentest/scripts/chisel_1.8.1_linux_386.gz -q; \
+    wget https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz -O ${home_folder}pentest/scripts/chisel_1.8.1_linux_amd64.gz -q ;"
 }
 
 
