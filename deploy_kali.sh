@@ -124,10 +124,10 @@ configure_system() {
 
     # Configure tmux
     printf "${GREEN}\nConfiguring tmux and zsh\n${NC}"
-    run_kali "cat <<EOT >> ${home_folder}.tmux.conf
-    set -g mouse on 
-    set -g history-limit 10000
-    EOT"
+    run_kali cat <<EOT >> ${home_folder}.tmux.conf
+set -g mouse on 
+set -g history-limit 10000
+EOT
 
     # autorecon
     printf "${GREEN}\nInstalling Autorecon in ${home_folder}pentest/venv/autorecon\n${NC}"
