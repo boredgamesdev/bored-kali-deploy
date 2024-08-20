@@ -190,7 +190,7 @@ case "$1" in
         fi
         ;;
     -l|--logging)
-       home_folder="/home/kali/"
+       home_folder="/home/$(whoami)/"
        if prompt_yes_no "Do you want to continue running the script for logging?";    then
         install_packages
 	install_docker
@@ -203,7 +203,7 @@ case "$1" in
         fi
         ;;
     -d|--default)
-       home_folder="/home/kali/"
+       home_folder="/home/$(whoami)/"
        if prompt_yes_no "Do you want to continue running the script default for the kali user?";    then
         install_packages
 	install_docker
