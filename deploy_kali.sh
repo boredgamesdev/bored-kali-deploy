@@ -55,7 +55,7 @@ install_docker() {
     printf "${GREEN}\nInstalling Docker\n${NC}"
     apt-get -y install docker.io docker-compose > /dev/null
     systemctl enable docker --now > /dev/null
-    usermod -aG docker kali 
+    usermod -aG docker $(whoami)
 }
 
 
